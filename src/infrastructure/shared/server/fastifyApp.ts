@@ -1,5 +1,5 @@
 import Fastify, { FastifyInstance } from "fastify";
-import { logger } from "../../../../shared/utils/logger";
+import { logger } from "../logger/logger";
 
 export class FastifyApp {
   private fastify!: FastifyInstance;

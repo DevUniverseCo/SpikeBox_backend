@@ -1,15 +1,15 @@
-import { MongoConnection } from "./infrastructure/adapters/db/mongo/mongoConnection";
-import { registerErrorHandler } from "./infrastructure/adapters/http/hooks/errorsHandler";
-import { FastifyApp } from "./infrastructure/adapters/http/server/fastifyApp";
+import { MongoConnection } from "./infrastructure/shared/database/mongoConnection";
+import { FastifyApp } from "./infrastructure/shared/server/fastifyApp";
 
 import autoLoad from "@fastify/autoload";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { IPlayerRepository } from "./application/players/playerRepository";
 import { PlayerService } from "./application/players/playerService";
-import { PlayerDao } from "./imfrastructure/dao/playerDao";
-import { config } from "./shared/utils/config";
-import { logger } from "./shared/utils/logger";
+import { PlayerDao } from "./infrastructure/dao/playerDao";
+import { config } from "./infrastructure/shared/config/mongoConfig";
+import { registerErrorHandler } from "./infrastructure/shared/hooks/errorsHandler";
+import { logger } from "./infrastructure/shared/logger/logger";
 
 export const getDirname = (metaUrl: string) => dirname(fileURLToPath(metaUrl));
 export const getFilename = (metaUrl: string) => fileURLToPath(metaUrl);
@@ -45,20 +45,6 @@ export class Application {
         dir: join(__dirname, "imfrastructure/http/routes"),
         options: { prefix: "/api", playerService },
       });
-
-      // const mongoAdapters = {
-      //   players: new MongoAdapter(db, "players", PlayerMapper),
-      //   clubs: new MongoAdapter(db, "clubs", ClubMapper),
-      //   experiences: new MongoAdapter(db, "experiences", ExperienceMapper),
-      // };
-
-      // const entityMap: Record<string, BaseUseCase<any>> = {
-      //   players: new BaseUseCase(mongoAdapters.players),
-      //   clubs: new BaseUseCase(mongoAdapters.clubs),
-      //   experiences: new BaseUseCase(mongoAdapters.experiences),
-      // };
-
-      // registerBaseRoutes(app, entityMap);
 
       this.setupGracefulShutdown();
 

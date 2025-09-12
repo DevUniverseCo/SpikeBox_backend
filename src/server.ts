@@ -1,5 +1,5 @@
 import { Application } from "./app";
-import { logger } from "./shared/utils/logger";
+import { logger } from "./infrastructure/shared/logger/logger";
 
 async function startServer() {
   const app = new Application();

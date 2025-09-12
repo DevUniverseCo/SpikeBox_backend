@@ -1,7 +1,7 @@
 import { Type } from "@sinclair/typebox";
 import { CommonSchemas } from "..";
-import { GenderEnum } from "../../../../domain/common/enums/genderEnum";
-import { PlayerRoleEnum } from "../../../../domain/common/enums/playerRoleEum";
+import { GenderEnum } from "../../../../application/common/enums/genderEnum";
+import { PlayerRoleEnum } from "../../../../application/common/enums/playerRoleEum";
 
 // Schema TypeBox per creare un Player
 export const CreatePlayer = Type.Object({

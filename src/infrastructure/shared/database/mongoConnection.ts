@@ -1,5 +1,5 @@
 import { Db, MongoClient } from "mongodb";
-import { logger } from "../../../../shared/utils/logger";
+import { logger } from "../logger/logger";
 
 export class MongoConnection {
   private readonly client: MongoClient;
