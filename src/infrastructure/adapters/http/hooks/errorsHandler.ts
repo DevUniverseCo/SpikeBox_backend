@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply } from "fastify";
 import { logger } from "../../../../shared/utils/logger";
-import { ApiResponse } from "../../../dtos/apiResponse";
+import { ApiResponse } from "../dtos/apiResponse";
 
 export interface AppError extends Error {
   status?: number;
