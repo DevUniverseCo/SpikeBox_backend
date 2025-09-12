@@ -1,3 +1,6 @@
-export const GenderEnum = ["female", "male"] as const;
+export const GenderEnum = {
+  female: "female",
+  male: "male",
+} as const;
 
-export type GenderEnum = (typeof GenderEnum)[number];
+export type GenderEnum = (typeof GenderEnum)[keyof typeof GenderEnum];

@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { GenderEnum } from "../../domain/common/enums/genderEnum";
 import { PlayerRoleEnum } from "../../domain/common/enums/playerRoleEum";
 import { SocialLinks } from "../../domain/common/enums/socialEnum";
@@ -15,7 +16,7 @@ export type CreatePlayer = {
 };
 
 export type Player = {
-  _id?: string;
+  _id?: ObjectId;
   locked: boolean;
   createdAt: Date;
   updatedAt: Date;

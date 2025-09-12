@@ -1,9 +1,10 @@
-export const PlayerRoleEnum = [
-  "libero",
-  "middle",
-  "opposite",
-  "outside",
-  "setter",
-] as const;
+export const PlayerRoleEnum = {
+  libero: "libero",
+  middle: "middle",
+  opposite: "opposite",
+  outside: "outside",
+  setter: "setter",
+} as const;
 
-export type PlayerRoleEnum = (typeof PlayerRoleEnum)[number];
+export type PlayerRoleEnum =
+  (typeof PlayerRoleEnum)[keyof typeof PlayerRoleEnum];

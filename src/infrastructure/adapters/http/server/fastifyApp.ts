@@ -12,6 +12,12 @@ export class FastifyApp {
         process.env.NODE_ENV === "prod"
           ? { level: "info" }
           : { level: "debug" },
+      ajv: {
+        customOptions: {
+          coerceTypes: false, // nessuna conversione automatica
+          removeAdditional: true, // rimuove automaticamente extraField e passa la validazione.
+        },
+      },
     });
   }
 

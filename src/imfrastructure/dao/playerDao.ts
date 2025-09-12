@@ -1,4 +1,4 @@
-import { Collection, Db } from "mongodb";
+import { Collection, Db, ObjectId } from "mongodb";
 import {
   CreatePlayer,
   Player,
@@ -36,7 +36,10 @@ export class PlayerDao implements IPlayerRepository {
   }
 
   async findById(id: Player["_id"]): Promise<Player | undefined> {
-    return (await this.collection.findOne({ _id: id })) ?? undefined;
+    const doc = await this.collection.findOne({
+      _id: new ObjectId(id),
+    });
+    return doc ?? undefined;
   }
 
   async update(

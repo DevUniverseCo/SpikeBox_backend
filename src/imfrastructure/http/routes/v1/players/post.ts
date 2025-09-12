@@ -1,6 +1,6 @@
 import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 import { FastifyInstance } from "fastify";
-import { ObjectId } from "mongodb";
+import { CreatePlayer } from "../../../../../application/players/model";
 import { PlayerService } from "../../../../../application/players/playerService";
 import { PlayerSchemas } from "../../../schemas";
 
@@ -14,20 +14,20 @@ const route: FastifyPluginAsyncTypebox<RouteOptions> = async (
 ) => {
   const { playerService } = opts;
 
-  app.get(
-    "/:playerId",
+  app.post(
+    "/",
     {
       schema: {
-        params: PlayerSchemas.Params.PlayerId,
+        body: PlayerSchemas.Bodies.CreatePlayer,
         response: {
-          200: PlayerSchemas.Bodies.Player,
+          201: PlayerSchemas.Bodies.Player,
         },
       },
     },
     async (request, reply) => {
-      const { playerId } = request.params as { playerId: ObjectId };
-      const player = await playerService.getById(playerId);
-      return reply.status(200).send(player);
+      const player = request.body as CreatePlayer;
+      const newPlayer = await playerService.create(player);
+      return reply.status(201).send(newPlayer);
     }
   );
 };
