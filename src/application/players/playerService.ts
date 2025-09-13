@@ -9,11 +9,11 @@ export class PlayerService {
     return this.playerRepository.create(player);
   }
 
-  async getById(id: ObjectId): Promise<Player | undefined> {
+  async findById(id: ObjectId): Promise<Player | undefined> {
     return this.playerRepository.findById(id);
   }
 
-  async getList(): Promise<Player[]> {
+  async findAll(): Promise<Player[]> {
     return this.playerRepository.findAll();
   }
 

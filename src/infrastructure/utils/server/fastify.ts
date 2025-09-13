@@ -1,5 +1,16 @@
 import Fastify, { FastifyInstance } from "fastify";
+import { ObjectId } from "mongodb";
+import { BaseService } from "../../../application/base/baseService";
+import { Club, CreateClub } from "../../../application/clubs/model";
+import { CreatePlayer, Player } from "../../../application/players/model";
 import { logger } from "../logger/logger";
+
+declare module "fastify" {
+  interface FastifyInstance {
+    playerService: BaseService<Player & { _id: ObjectId }, CreatePlayer>;
+    clubService: BaseService<Club & { _id: ObjectId }, CreateClub>;
+  }
+}
 
 export class FastifyApp {
   private fastify!: FastifyInstance;

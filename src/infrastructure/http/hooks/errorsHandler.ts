@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply } from "fastify";
-import { logger } from "../../../../shared/utils/logger";
-import { ApiResponse } from "../dtos/apiResponse";
+import { Response } from "../../../application/common/models";
+import { logger } from "../../utils/logger/logger";
 
 export interface AppError extends Error {
   status?: number;
@@ -21,7 +21,7 @@ export function registerErrorHandler(app: FastifyInstance) {
       logger.warn("Handled error", { message, status });
     }
 
-    const payload: ApiResponse<unknown> = {
+    const payload: Response<unknown> = {
       code: status,
       message,
       data: status >= 500 ? null : [],

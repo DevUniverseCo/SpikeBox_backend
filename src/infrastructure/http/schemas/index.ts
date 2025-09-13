@@ -1,2 +1,2 @@
-export * as CommonSchemas from "./commons";
-export * as PlayerSchemas from "./players";
+export * as CommonSchema from "./commons";
+export * as PlayerSchema from "./players";

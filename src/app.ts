@@ -1,15 +1,17 @@
-import { MongoConnection } from "./infrastructure/shared/database/mongoConnection";
-import { FastifyApp } from "./infrastructure/shared/server/fastifyApp";
+import { MongoConnection } from "./infrastructure/utils/database/mongoConnection";
 
 import autoLoad from "@fastify/autoload";
+import { ObjectId } from "mongodb";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-import { IPlayerRepository } from "./application/players/playerRepository";
-import { PlayerService } from "./application/players/playerService";
-import { PlayerDao } from "./infrastructure/dao/playerDao";
-import { config } from "./infrastructure/shared/config/mongoConfig";
-import { registerErrorHandler } from "./infrastructure/shared/hooks/errorsHandler";
-import { logger } from "./infrastructure/shared/logger/logger";
+import { BaseService } from "./application/base/baseService";
+import { Club, CreateClub } from "./application/clubs/model";
+import { CreatePlayer, Player } from "./application/players/model";
+import { BaseDao } from "./infrastructure/dao/baseDto";
+import { registerErrorHandler } from "./infrastructure/http/hooks/errorsHandler";
+import { config } from "./infrastructure/utils/config/mongoConfig";
+import { logger } from "./infrastructure/utils/logger/logger";
+import { FastifyApp } from "./infrastructure/utils/server/fastify";
 
 export const getDirname = (metaUrl: string) => dirname(fileURLToPath(metaUrl));
 export const getFilename = (metaUrl: string) => fileURLToPath(metaUrl);
@@ -38,12 +40,31 @@ export class Application {
 
       const db = this.dbConnection.getDatabase();
 
-      const playersRepository: IPlayerRepository = new PlayerDao(db);
-      const playerService = new PlayerService(playersRepository);
+      // const playersRepository: IPlayerRepository = new PlayerDao(db);
+      // const playerService = new PlayerService(playersRepository);
+
+      // const clubsRepository: IClubRepository = new ClubDao(db);
+      // const clubService = new ClubService(clubsRepository);
+
+      // Player
+      const playerRepo = new BaseDao<Player & { _id: ObjectId }, CreatePlayer>(
+        db,
+        "players"
+      );
+      const playerService = new BaseService(playerRepo);
+      app.decorate("playerService", playerService);
+
+      // Club
+      const clubRepo = new BaseDao<Club & { _id: ObjectId }, CreateClub>(
+        db,
+        "clubs"
+      );
+      const clubService = new BaseService(clubRepo);
+      app.decorate("clubService", clubService);
 
       app.register(autoLoad, {
-        dir: join(__dirname, "imfrastructure/http/routes"),
-        options: { prefix: "/api", playerService },
+        dir: join(__dirname, "infrastructure/http/routes"),
+        options: { prefix: "/api" },
       });
 
       this.setupGracefulShutdown();

@@ -16,7 +16,7 @@ export type CreatePlayer = {
 };
 
 export type Player = {
-  _id?: ObjectId;
+  readonly _id?: ObjectId;
   locked: boolean;
   createdAt: Date;
   updatedAt: Date;

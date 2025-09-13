@@ -1,0 +1,23 @@
+import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
+import { FastifyInstance } from "fastify";
+import { ObjectId } from "mongodb";
+import { entities } from "../../../utils/entities";
+
+const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance) => {
+  for (const [entity, config] of Object.entries(entities)) {
+    app.get(
+      `/${entity}/:id`,
+      {
+        schema: config.schemas.get,
+      },
+      async (request) => {
+        const { id } = request.params as { id: string };
+        const objectId = new ObjectId(id);
+        const service = config.service(app);
+        return await service.findById(objectId);
+      }
+    );
+  }
+};
+
+export default route;
