@@ -3,8 +3,8 @@ import { LeagueEnum } from "../../common/enums/leagueEnum ";
 import { PlayerRoleEnum } from "../../common/enums/playerRoleEum";
 
 export type CreateExperience = {
-  playerId: string;
-  clubId: string;
+  playerId: ObjectId;
+  clubId: ObjectId;
   league: LeagueEnum;
   seasonStartYear: number;
   seasonEndYear: number;
@@ -13,7 +13,7 @@ export type CreateExperience = {
 };
 
 export type Experience = {
-  _id?: ObjectId;
+  _id: ObjectId;
   locked: boolean;
   createdAt: Date;
   updatedAt: Date;

@@ -16,7 +16,7 @@ export const UpdateExperience = Type.Partial(CreateExperience);
 
 export const Experience = Type.Intersect([
   Type.Object({
-    _id: Type.Optional(Type.String()),
+    _id: Type.String(),
     locked: Type.Boolean(),
     createdAt: Type.String({ format: "date-time" }),
     updatedAt: Type.String({ format: "date-time" }),

@@ -48,6 +48,14 @@ export const entities = {
           500: CommonSchema.Errors.InternalServerError,
         },
       },
+      getWithExperiences: {
+        params: CommonSchema.Params.Id,
+        response: {
+          200: PlayerSchema.Bodies.PlayerWithExperiences,
+          404: CommonSchema.Errors.NotFound,
+          500: CommonSchema.Errors.InternalServerError,
+        },
+      },
     },
   },
   clubs: {

@@ -9,7 +9,7 @@ import { IBaseRepository } from "../../application/entities/base/baseRepository"
 export class BaseDao<Entity, CreateEntity>
   implements IBaseRepository<Entity, CreateEntity>
 {
-  constructor(private readonly collection: Collection) {}
+  constructor(readonly collection: Collection) {}
 
   async create(createEntity: CreateEntity): Promise<Entity> {
     const now = new Date();

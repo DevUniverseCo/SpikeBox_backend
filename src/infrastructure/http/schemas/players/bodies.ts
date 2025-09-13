@@ -1,6 +1,7 @@
 import { Type } from "@sinclair/typebox";
 import { GenderEnum } from "../../../../application/common/enums/genderEnum";
 import { PlayerRoleEnum } from "../../../../application/common/enums/playerRoleEum";
+import { Experience } from "../experiences/bodies";
 
 export const CreatePlayer = Type.Object({
   firstName: Type.String(),
@@ -24,7 +25,7 @@ export const UpdatePlayer = Type.Partial(CreatePlayer);
 
 export const Player = Type.Intersect([
   Type.Object({
-    _id: Type.Optional(Type.String()),
+    _id: Type.String(),
     locked: Type.Boolean(),
     createdAt: Type.String({ format: "date-time" }),
     updatedAt: Type.String({ format: "date-time" }),
@@ -33,6 +34,13 @@ export const Player = Type.Intersect([
 ]);
 
 export const Players = Type.Array(Player);
+
+export const PlayerWithExperiences = Type.Intersect([
+  Player,
+  Type.Object({
+    experiences: Type.Array(Experience),
+  }),
+]);
 
 // Schema per UpdatePlayer (tutti i campi opzionali)
 // export const PlayersPaginated = CommonSchema.Bodies.PaginationResult(Player);
