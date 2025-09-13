@@ -1,9 +1,7 @@
 import { Type } from "@sinclair/typebox";
-import { CommonSchema } from "..";
 import { GenderEnum } from "../../../../application/common/enums/genderEnum";
 import { PlayerRoleEnum } from "../../../../application/common/enums/playerRoleEum";
 
-// Schema TypeBox per creare un Player
 export const CreatePlayer = Type.Object({
   firstName: Type.String(),
   lastName: Type.String(),
@@ -22,10 +20,8 @@ export const CreatePlayer = Type.Object({
   ),
 });
 
-// Schema TypeBox per aggiornare un Player (tutti i campi opzionali)
 export const UpdatePlayer = Type.Partial(CreatePlayer);
 
-// Schema per Player (con campi aggiuntivi)
 export const Player = Type.Intersect([
   Type.Object({
     _id: Type.Optional(Type.String()),
@@ -39,4 +35,4 @@ export const Player = Type.Intersect([
 export const Players = Type.Array(Player);
 
 // Schema per UpdatePlayer (tutti i campi opzionali)
-export const PlayersPaginated = CommonSchema.Bodies.PaginationResult(Player);
+// export const PlayersPaginated = CommonSchema.Bodies.PaginationResult(Player);

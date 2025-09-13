@@ -4,7 +4,7 @@ import {
   OptionalUnlessRequiredId,
   WithId,
 } from "mongodb";
-import { IBaseRepository } from "../../application/base/baseRepository";
+import { IBaseRepository } from "../../application/entities/base/baseRepository";
 
 export class BaseDao<Entity, CreateEntity>
   implements IBaseRepository<Entity, CreateEntity>

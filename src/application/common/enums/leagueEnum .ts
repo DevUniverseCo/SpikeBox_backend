@@ -1,3 +1,7 @@
-export const LeagueEnum = ["SerieA", "SerieB", "Serie C"] as const;
+export const LeagueEnum = {
+  SerieA: "SerieA",
+  SerieB: "SerieB",
+  SerieC: "SerieC",
+} as const;
 
-export type LeagueEnum = (typeof LeagueEnum)[number];
+export type LeagueEnum = (typeof LeagueEnum)[keyof typeof LeagueEnum];

@@ -1,6 +1,6 @@
 import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 import { FastifyInstance, FastifyRequest } from "fastify";
-import { entities } from "../../../utils/entities";
+import { entities } from "../../../entities";
 
 const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance) => {
   for (const [entity, config] of Object.entries(entities)) {
