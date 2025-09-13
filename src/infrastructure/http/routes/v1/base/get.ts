@@ -17,6 +17,16 @@ const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance) => {
         return await service.findById(objectId);
       }
     );
+    app.get(
+      `/${entity}`,
+      {
+        schema: config.schemas.getAll,
+      },
+      async (request) => {
+        const service = config.service(app);
+        return await service.findAll();
+      }
+    );
   }
 };
 

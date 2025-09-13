@@ -3,7 +3,7 @@ import { FastifyInstance } from "fastify";
 import { ObjectId } from "mongodb";
 import { entities } from "../../../utils/entities";
 
-const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance) => {
+const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance, opts) => {
   for (const [entity, config] of Object.entries(entities)) {
     app.delete(
       `/${entity}/:id`,

@@ -13,6 +13,12 @@ export const entities = {
           500: CommonSchema.Errors.InternalServerError,
         },
       },
+      getAll: {
+        response: {
+          200: PlayerSchema.Bodies.Players,
+          500: CommonSchema.Errors.InternalServerError,
+        },
+      },
       post: {
         body: PlayerSchema.Bodies.CreatePlayer,
         response: {
@@ -32,12 +38,11 @@ export const entities = {
       delete: {
         params: CommonSchema.Params.Id,
         response: {
-          200: PlayerSchema.Bodies.Player,
+          204: { type: "boolean" },
           404: CommonSchema.Errors.NotFound,
           500: CommonSchema.Errors.InternalServerError,
         },
       },
     },
   },
-  // clubs, ecc.
 };

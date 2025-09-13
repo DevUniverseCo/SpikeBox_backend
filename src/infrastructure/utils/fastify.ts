@@ -1,23 +1,17 @@
 import Fastify, { FastifyInstance } from "fastify";
-import { ObjectId } from "mongodb";
-import { BaseService } from "../../../application/base/baseService";
-import { Club, CreateClub } from "../../../application/clubs/model";
-import { CreatePlayer, Player } from "../../../application/players/model";
-import { logger } from "../logger/logger";
-
-declare module "fastify" {
-  interface FastifyInstance {
-    playerService: BaseService<Player & { _id: ObjectId }, CreatePlayer>;
-    clubService: BaseService<Club & { _id: ObjectId }, CreateClub>;
-  }
-}
+import { config } from "./config/mongoConfig";
+import { logger } from "./logger/logger";
 
 export class FastifyApp {
-  private fastify!: FastifyInstance;
+  private fastify: FastifyInstance;
+  private port: number;
 
-  constructor(private readonly port: number) {}
+  constructor() {
+    this.port = config.server.port;
+    if (!this.port) {
+      throw new Error("FastifyApp: port must be provided in config");
+    }
 
-  init(): void {
     this.fastify = Fastify({
       logger:
         process.env.NODE_ENV === "prod"
@@ -26,7 +20,7 @@ export class FastifyApp {
       ajv: {
         customOptions: {
           coerceTypes: false, // nessuna conversione automatica
-          removeAdditional: true, // rimuove automaticamente extraField e passa la validazione.
+          removeAdditional: true, // rimuove extraField e passa la validazione
         },
       },
     });

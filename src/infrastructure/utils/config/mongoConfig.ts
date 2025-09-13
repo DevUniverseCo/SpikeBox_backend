@@ -7,7 +7,7 @@ dotenv.config({ path: envPath });
 
 interface MongoConfig {
   uri: string;
-  name: string;
+  dbName: string;
 }
 
 interface ServerConfig {
@@ -30,7 +30,7 @@ export const config: AppConfig = {
         process.env.MONGODB_URI ||
         `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}` +
           `@${process.env.MONGODB_CLUSTER}/${process.env.MONGODB_DATABASE}?retryWrites=true&w=majority`,
-      name: process.env.MONGODB_DATABASE || "",
+      dbName: process.env.MONGODB_DATABASE || "",
     },
   },
   server: {

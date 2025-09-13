@@ -36,5 +36,7 @@ export const Player = Type.Intersect([
   CreatePlayer,
 ]);
 
+export const Players = Type.Array(Player);
+
 // Schema per UpdatePlayer (tutti i campi opzionali)
 export const PlayersPaginated = CommonSchema.Bodies.PaginationResult(Player);
