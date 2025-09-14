@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import { NotFoundError } from "../../common/errors";
 import { IBaseRepository } from "./baseRepository";
 
@@ -11,7 +10,7 @@ export class BaseService<Entity, CreateEntity> {
     return this.baseRepository.create(createEntity);
   }
 
-  async findById(id: ObjectId): Promise<Entity | undefined> {
+  async findById(id: string): Promise<Entity | undefined> {
     const item = await this.baseRepository.findById(id);
     this.handleNotFound(item, id);
     return item;
@@ -22,7 +21,7 @@ export class BaseService<Entity, CreateEntity> {
   }
 
   async update(
-    id: ObjectId,
+    id: string,
     updateEntity: CreateEntity
   ): Promise<Entity | undefined> {
     const updatedItem = await this.baseRepository.update(id, updateEntity);
@@ -30,13 +29,13 @@ export class BaseService<Entity, CreateEntity> {
     return updatedItem;
   }
 
-  async delete(id: ObjectId): Promise<Entity | undefined> {
+  async delete(id: string): Promise<Entity | undefined> {
     const item = await this.baseRepository.delete(id);
     this.handleNotFound(item, id);
     return item;
   }
 
-  private handleNotFound(entity: Entity | undefined, id: ObjectId): void {
+  private handleNotFound(entity: Entity | undefined, id: string): void {
     if (!entity) throw new NotFoundError(`Entity with id ${id} not found`);
   }
 }

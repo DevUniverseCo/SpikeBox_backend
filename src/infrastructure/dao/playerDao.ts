@@ -1,4 +1,4 @@
-import { Collection, ObjectId } from "mongodb";
+import { Collection } from "mongodb";
 import {
   CreatePlayer,
   Player,
@@ -16,7 +16,7 @@ export class PlayerDao
   }
 
   findByIdWithExperiences(
-    id: ObjectId
+    id: string
   ): Promise<PlayerWithExperiences | undefined> {
     throw new Error("Method not implemented.");
   }

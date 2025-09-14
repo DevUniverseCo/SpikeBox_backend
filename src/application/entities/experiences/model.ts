@@ -1,10 +1,9 @@
-import { ObjectId } from "mongodb";
 import { LeagueEnum } from "../../common/enums/leagueEnum ";
 import { PlayerRoleEnum } from "../../common/enums/playerRoleEum";
 
 export type CreateExperience = {
-  playerId: ObjectId;
-  clubId: ObjectId;
+  playerId: string;
+  clubId: string;
   league: LeagueEnum;
   seasonStartYear: number;
   seasonEndYear: number;
@@ -13,7 +12,7 @@ export type CreateExperience = {
 };
 
 export type Experience = {
-  _id: ObjectId;
+  _id: string;
   locked: boolean;
   createdAt: Date;
   updatedAt: Date;

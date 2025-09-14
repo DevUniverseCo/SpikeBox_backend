@@ -1,9 +1,7 @@
-import { ObjectId } from "mongodb";
-
 export interface IBaseRepository<Entity, CreateEntity> {
   create(entity: CreateEntity): Promise<Entity>;
   findAll(): Promise<Entity[]>;
-  findById(id: ObjectId): Promise<Entity | undefined>;
-  update(id: ObjectId, entity: CreateEntity): Promise<Entity | undefined>;
-  delete(id: ObjectId): Promise<Entity | undefined>;
+  findById(id: string): Promise<Entity | undefined>;
+  update(id: string, entity: CreateEntity): Promise<Entity | undefined>;
+  delete(id: string): Promise<Entity | undefined>;
 }

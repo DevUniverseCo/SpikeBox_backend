@@ -1,6 +1,5 @@
 import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 import { FastifyInstance } from "fastify";
-import { ObjectId } from "mongodb";
 import {
   DataResponseArray,
   DataResponseSingle,
@@ -17,7 +16,7 @@ const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance) => {
       async (request): Promise<DataResponseSingle<typeof config.type>> => {
         const { id } = request.params as { id: string };
         const service = config.service(app);
-        const item = await service.findById(new ObjectId(id));
+        const item = await service.findById(id);
         return {
           message: `${entity} retrieved successfully`,
           data: item as typeof config.type,

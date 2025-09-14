@@ -1,5 +1,4 @@
 import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
-import { ObjectId } from "mongodb";
 import { entities } from "../../../entities";
 
 const route: FastifyPluginAsyncTypebox = async (app) => {
@@ -10,9 +9,8 @@ const route: FastifyPluginAsyncTypebox = async (app) => {
     },
     async (request, reply) => {
       const { id } = request.params as { id: string };
-      const objectId = new ObjectId(id);
 
-      const player = await app.playerService.findByIdWithExperiences(objectId);
+      const player = await app.playerService.findByIdWithExperiences(id);
 
       if (!player) {
         return undefined;

@@ -1,4 +1,4 @@
-import { Collection, ObjectId } from "mongodb";
+import { Collection } from "mongodb";
 import { IExperienceRepository } from "../../application/entities/experiences/experienceRepository";
 import {
   CreateExperience,
@@ -14,10 +14,17 @@ export class ExperienceDao
     super(collection);
   }
 
-  async findByPlayerId(playerId: ObjectId): Promise<Experience[]> {
-    const docs = await this.collection
-      .find({ playerId: playerId.toHexString() })
-      .toArray();
-    return docs as Experience[];
+  async findByPlayerId(playerId: string): Promise<Experience[]> {
+    const docs = await this.collection.find({ playerId: playerId }).toArray();
+    return docs.map((doc) => ({
+      _id: doc._id.toString(),
+      playerId: doc.playerId,
+      locked: doc.locked,
+      createdAt:
+        doc.createdAt instanceof Date ? doc.createdAt : new Date(doc.createdAt),
+      updatedAt:
+        doc.updatedAt instanceof Date ? doc.updatedAt : new Date(doc.updatedAt),
+      // add other Experience fields if needed
+    })) as Experience[];
   }
 }

@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import { SocialLinks } from "../../common/enums/socialEnum";
 
 export type CreateClub = {
@@ -12,7 +11,7 @@ export type CreateClub = {
 };
 
 export type Club = {
-  _id: ObjectId;
+  _id: string;
   locked: boolean;
   createdAt: Date;
   updatedAt: Date;

@@ -143,6 +143,13 @@ export const entities = {
           ...ErrorResponses,
         },
       },
+      getByPlayerId: {
+        params: CommonSchema.Params.Id,
+        response: {
+          200: ExperienceSchema.Bodies.ExperienceResponseArray,
+          ...ErrorResponses,
+        },
+      },
     },
   },
 };

@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import { BaseService } from "../base/baseService";
 import { IPlayerRepository } from "../players/playerRepository";
 import { IExperienceRepository } from "./experienceRepository";
@@ -15,7 +14,7 @@ export class ExperienceService extends BaseService<
     super(experienceRepository);
   }
 
-  async findByPlayerId(playerId: ObjectId): Promise<Experience[] | undefined> {
+  async findByPlayerId(playerId: string): Promise<Experience[]> {
     const experiences = await this.experienceRepository.findByPlayerId(
       playerId
     );
