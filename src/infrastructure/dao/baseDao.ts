@@ -54,10 +54,10 @@ export class BaseDao<Entity, CreateEntity>
     return (doc as unknown as Entity) ?? undefined;
   }
 
-  async delete(id: ObjectId | string): Promise<boolean> {
+  async delete(id: ObjectId): Promise<Entity | undefined> {
     const doc = await this.collection.deleteOne({
       _id: id,
     } as WithId<Entity>);
-    return doc.deletedCount === 1;
+    return (doc as Entity) ?? undefined;
   }
 }

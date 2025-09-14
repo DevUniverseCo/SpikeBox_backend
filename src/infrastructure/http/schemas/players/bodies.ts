@@ -1,6 +1,7 @@
 import { Type } from "@sinclair/typebox";
 import { GenderEnum } from "../../../../application/common/enums/genderEnum";
 import { PlayerRoleEnum } from "../../../../application/common/enums/playerRoleEum";
+import { DataResponseArray, DataResponseSingle } from "../commons/bodies";
 import { Experience } from "../experiences/bodies";
 
 export const CreatePlayer = Type.Object({
@@ -33,8 +34,6 @@ export const Player = Type.Intersect([
   CreatePlayer,
 ]);
 
-export const Players = Type.Array(Player);
-
 export const PlayerWithExperiences = Type.Intersect([
   Player,
   Type.Object({
@@ -42,5 +41,5 @@ export const PlayerWithExperiences = Type.Intersect([
   }),
 ]);
 
-// Schema per UpdatePlayer (tutti i campi opzionali)
-// export const PlayersPaginated = CommonSchema.Bodies.PaginationResult(Player);
+export const PlayerResponseSingle = DataResponseSingle(Player);
+export const PlayerResponseArray = DataResponseArray(Player);

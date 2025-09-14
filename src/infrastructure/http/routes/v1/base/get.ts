@@ -1,6 +1,10 @@
 import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 import { FastifyInstance } from "fastify";
 import { ObjectId } from "mongodb";
+import {
+  DataResponseArray,
+  DataResponseSingle,
+} from "../../../../../application/common/models";
 import { entities } from "../../../entities";
 
 const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance) => {
@@ -10,11 +14,14 @@ const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance) => {
       {
         schema: config.schemas.get,
       },
-      async (request) => {
+      async (request): Promise<DataResponseSingle<typeof config.type>> => {
         const { id } = request.params as { id: string };
-        const objectId = new ObjectId(id);
         const service = config.service(app);
-        return await service.findById(objectId);
+        const item = await service.findById(new ObjectId(id));
+        return {
+          message: `${entity} retrieved successfully`,
+          data: item as typeof config.type,
+        };
       }
     );
     app.get(
@@ -22,9 +29,13 @@ const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance) => {
       {
         schema: config.schemas.getAll,
       },
-      async (request) => {
+      async (): Promise<DataResponseArray<typeof config.type>> => {
         const service = config.service(app);
-        return await service.findAll();
+        const items = await service.findAll();
+        return {
+          message: `${entity} list retrieved successfully`,
+          data: items,
+        };
       }
     );
   }

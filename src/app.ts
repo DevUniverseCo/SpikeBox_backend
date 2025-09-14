@@ -2,7 +2,7 @@ import { MongoDbClient } from "./infrastructure/utils/database/mongoDbClient";
 
 import autoLoad from "@fastify/autoload";
 import { join } from "path";
-import { registerErrorHandler } from "./infrastructure/http/hooks/errorsHandler";
+import { errorHook } from "./infrastructure/http/hooks/errorsHook";
 import { FastifyApp } from "./infrastructure/utils/fastify";
 import { logger } from "./infrastructure/utils/logger/logger";
 
@@ -32,7 +32,7 @@ export class Application {
       });
 
       // hook
-      registerErrorHandler(this.fastifyApp.getInstance());
+      errorHook(this.fastifyApp.getInstance());
 
       this.setupGracefulShutdown();
 

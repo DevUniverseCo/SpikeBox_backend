@@ -1,4 +1,7 @@
 import { FastifyInstance } from "fastify";
+import { Club } from "../../application/entities/clubs/model";
+import { Experience } from "../../application/entities/experiences/model";
+import { Player } from "../../application/entities/players/model";
 import {
   ClubSchema,
   CommonSchema,
@@ -6,29 +9,34 @@ import {
   PlayerSchema,
 } from "./schemas";
 
+const ErrorResponses = {
+  404: CommonSchema.Errors.ApiErrorResponse,
+  500: CommonSchema.Errors.ApiErrorResponse,
+};
+
 export const entities = {
   players: {
+    type: {} as Player,
     service: (app: FastifyInstance) => app.playerService,
     schemas: {
       get: {
         params: CommonSchema.Params.Id,
         response: {
-          200: PlayerSchema.Bodies.Player,
-          404: CommonSchema.Errors.NotFound,
-          500: CommonSchema.Errors.InternalServerError,
+          200: PlayerSchema.Bodies.PlayerResponseSingle,
+          ...ErrorResponses,
         },
       },
       getAll: {
         response: {
-          200: PlayerSchema.Bodies.Players,
-          500: CommonSchema.Errors.InternalServerError,
+          200: PlayerSchema.Bodies.PlayerResponseArray,
+          ...ErrorResponses,
         },
       },
       post: {
         body: PlayerSchema.Bodies.CreatePlayer,
         response: {
           201: PlayerSchema.Bodies.Player,
-          500: CommonSchema.Errors.InternalServerError,
+          ...ErrorResponses,
         },
       },
       patch: {
@@ -36,50 +44,47 @@ export const entities = {
         body: PlayerSchema.Bodies.UpdatePlayer,
         response: {
           200: PlayerSchema.Bodies.Player,
-          404: CommonSchema.Errors.NotFound,
-          500: CommonSchema.Errors.InternalServerError,
+          ...ErrorResponses,
         },
       },
       delete: {
         params: CommonSchema.Params.Id,
         response: {
           204: { type: "boolean" },
-          404: CommonSchema.Errors.NotFound,
-          500: CommonSchema.Errors.InternalServerError,
+          ...ErrorResponses,
         },
       },
       getWithExperiences: {
         params: CommonSchema.Params.Id,
         response: {
           200: PlayerSchema.Bodies.PlayerWithExperiences,
-          404: CommonSchema.Errors.NotFound,
-          500: CommonSchema.Errors.InternalServerError,
+          ...ErrorResponses,
         },
       },
     },
   },
   clubs: {
+    type: {} as Club,
     service: (app: FastifyInstance) => app.clubService,
     schemas: {
       get: {
         params: CommonSchema.Params.Id,
         response: {
-          200: ClubSchema.Bodies.Club,
-          404: CommonSchema.Errors.NotFound,
-          500: CommonSchema.Errors.InternalServerError,
+          200: ClubSchema.Bodies.ClubResponseSingle,
+          ...ErrorResponses,
         },
       },
       getAll: {
         response: {
-          200: ClubSchema.Bodies.Clubs,
-          500: CommonSchema.Errors.InternalServerError,
+          200: ClubSchema.Bodies.ClubResponseArray,
+          ...ErrorResponses,
         },
       },
       post: {
         body: ClubSchema.Bodies.CreateClub,
         response: {
           201: ClubSchema.Bodies.Club,
-          500: CommonSchema.Errors.InternalServerError,
+          ...ErrorResponses,
         },
       },
       patch: {
@@ -87,42 +92,40 @@ export const entities = {
         body: ClubSchema.Bodies.UpdateClub,
         response: {
           200: ClubSchema.Bodies.Club,
-          404: CommonSchema.Errors.NotFound,
-          500: CommonSchema.Errors.InternalServerError,
+          ...ErrorResponses,
         },
       },
       delete: {
         params: CommonSchema.Params.Id,
         response: {
           204: { type: "boolean" },
-          404: CommonSchema.Errors.NotFound,
-          500: CommonSchema.Errors.InternalServerError,
+          ...ErrorResponses,
         },
       },
     },
   },
   experiences: {
+    type: {} as Experience,
     service: (app: FastifyInstance) => app.experienceService,
     schemas: {
       get: {
         params: CommonSchema.Params.Id,
         response: {
-          200: ExperienceSchema.Bodies.Experience,
-          404: CommonSchema.Errors.NotFound,
-          500: CommonSchema.Errors.InternalServerError,
+          200: ExperienceSchema.Bodies.ExperienceResponseSingle,
+          ...ErrorResponses,
         },
       },
       getAll: {
         response: {
-          200: ExperienceSchema.Bodies.Experiences,
-          500: CommonSchema.Errors.InternalServerError,
+          200: ExperienceSchema.Bodies.ExperienceResponseArray,
+          ...ErrorResponses,
         },
       },
       post: {
         body: ExperienceSchema.Bodies.CreateExperience,
         response: {
           201: ExperienceSchema.Bodies.Experience,
-          500: CommonSchema.Errors.InternalServerError,
+          ...ErrorResponses,
         },
       },
       patch: {
@@ -130,16 +133,14 @@ export const entities = {
         body: ExperienceSchema.Bodies.UpdateExperience,
         response: {
           200: ExperienceSchema.Bodies.Experience,
-          404: CommonSchema.Errors.NotFound,
-          500: CommonSchema.Errors.InternalServerError,
+          ...ErrorResponses,
         },
       },
       delete: {
         params: CommonSchema.Params.Id,
         response: {
           204: { type: "boolean" },
-          404: CommonSchema.Errors.NotFound,
-          500: CommonSchema.Errors.InternalServerError,
+          ...ErrorResponses,
         },
       },
     },

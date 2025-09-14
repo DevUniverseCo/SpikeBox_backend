@@ -5,5 +5,5 @@ export interface IBaseRepository<Entity, CreateEntity> {
   findAll(): Promise<Entity[]>;
   findById(id: ObjectId): Promise<Entity | undefined>;
   update(id: ObjectId, entity: CreateEntity): Promise<Entity | undefined>;
-  delete(id: ObjectId): Promise<boolean>;
+  delete(id: ObjectId): Promise<Entity | undefined>;
 }

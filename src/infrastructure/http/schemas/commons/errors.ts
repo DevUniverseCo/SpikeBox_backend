@@ -1,11 +1,25 @@
 import { Type } from "@sinclair/typebox";
 
-// 404 Not Found
-export const NotFound = Type.Object({
-  error: Type.String({ default: "Not found" }),
+// Wrapper uniforme per errori
+export const ApiErrorResponse = Type.Object({
+  status: Type.Literal("error"),
+  statusCode: Type.Number(),
+  message: Type.String(),
 });
 
-// 500 Internal Server Error
-export const InternalServerError = Type.Object({
-  error: Type.String({ default: "Internal Server Error" }),
-});
+// Esempi di schemi specifici
+export const NotFound = Type.Intersect([
+  ApiErrorResponse,
+  Type.Object({
+    statusCode: Type.Literal(404),
+    message: Type.String({ default: "Not Found" }),
+  }),
+]);
+
+export const InternalServerError = Type.Intersect([
+  ApiErrorResponse,
+  Type.Object({
+    statusCode: Type.Literal(500),
+    message: Type.String({ default: "Internal Server Error" }),
+  }),
+]);

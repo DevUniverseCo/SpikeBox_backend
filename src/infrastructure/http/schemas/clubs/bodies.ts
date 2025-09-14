@@ -1,4 +1,5 @@
 import { Type } from "@sinclair/typebox";
+import { DataResponseArray, DataResponseSingle } from "../commons/bodies";
 
 export const CreateClub = Type.Object({
   name: Type.String(),
@@ -28,7 +29,5 @@ export const Club = Type.Intersect([
   CreateClub,
 ]);
 
-export const Clubs = Type.Array(Club);
-
-// Eventuale schema paginato
-// export const ClubsPaginated = CommonSchema.Bodies.PaginationResult(Club);
+export const ClubResponseSingle = DataResponseSingle(Club);
+export const ClubResponseArray = DataResponseArray(Club);

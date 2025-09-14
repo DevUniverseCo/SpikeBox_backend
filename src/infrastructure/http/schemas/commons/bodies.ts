@@ -1,7 +1,15 @@
 import { TSchema, Type } from "@sinclair/typebox";
 
-export const PaginationResult = <Schema extends TSchema>(itemsSchema: Schema) =>
+// ✅ Wrapper per un singolo oggetto
+export const DataResponseSingle = <T extends TSchema>(schema: T) =>
   Type.Object({
-    count: Type.Number({ default: 0 }),
-    data: Type.Array(itemsSchema),
+    message: Type.String(),
+    data: schema,
+  });
+
+// ✅ Wrapper per un array di oggetti
+export const DataResponseArray = <T extends TSchema>(schema: T) =>
+  Type.Object({
+    message: Type.String(),
+    data: Type.Array(schema),
   });

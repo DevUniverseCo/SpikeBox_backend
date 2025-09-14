@@ -1,6 +1,7 @@
 import { Type } from "@sinclair/typebox";
 import { LeagueEnum } from "../../../../application/common/enums/leagueEnum ";
 import { PlayerRoleEnum } from "../../../../application/common/enums/playerRoleEum";
+import { DataResponseArray, DataResponseSingle } from "../commons/bodies";
 
 export const CreateExperience = Type.Object({
   playerId: Type.String(),
@@ -24,11 +25,5 @@ export const Experience = Type.Intersect([
   CreateExperience,
 ]);
 
-export const Experiences = Type.Array(Experience);
-
-export const ExperiencesPaginated = Type.Object({
-  items: Experiences,
-  total: Type.Number(),
-  page: Type.Number(),
-  limit: Type.Number(),
-});
+export const ExperienceResponseSingle = DataResponseSingle(Experience);
+export const ExperienceResponseArray = DataResponseArray(Experience);

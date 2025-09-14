@@ -1,18 +1,17 @@
-export type Pagination = {
-  offset: number;
-  limit: number;
-};
-
-export type PaginatedResult<T> = {
-  count: number;
-  data: T[];
-};
-
 export type SortBy<T extends object> = Array<[keyof T, ("asc" | "desc")?]>;
 
-export type Response<T> = {
-  code: number;
+export type ErrorResponse = {
+  status: "error";
+  statusCode: number;
+  message: string;
+};
+
+export type DataResponseSingle<T> = {
   message: string;
   data: T;
-  success: boolean;
+};
+
+export type DataResponseArray<T> = {
+  message: string;
+  data: T[];
 };
