@@ -11,7 +11,7 @@ import { PlayerDao } from "../dao/playerDao";
 declare module "fastify" {
   interface FastifyInstance {
     playerService: PlayerService;
-    experienceService: HistoryService;
+    historyService: HistoryService;
     clubService: BaseService<Club, CreateClub>;
     db: Db;
   }
@@ -20,21 +20,21 @@ declare module "fastify" {
 export default fp(async (fastify) => {
   const clubsCollection = fastify.db.collection("clubs");
   const playersCollection = fastify.db.collection("players");
-  const experiencesCollection = fastify.db.collection("experiences");
+  const historiesCollection = fastify.db.collection("histories");
 
   const playerDao = new PlayerDao(playersCollection);
-  const experienceDao = new HistoryDao(experiencesCollection);
+  const historyDao = new HistoryDao(historiesCollection);
   const clubBaseDao = new BaseDao<Club, CreateClub>(clubsCollection);
 
-  // club
+  // clubs
   const clubBaseService = new BaseService(clubBaseDao);
   fastify.decorate("clubService", clubBaseService);
 
   // players
-  const playerService = new PlayerService(playerDao, experienceDao);
+  const playerService = new PlayerService(playerDao, historyDao);
   fastify.decorate("playerService", playerService);
 
-  // experience
-  const experienceService = new HistoryService(playerDao, experienceDao);
-  fastify.decorate("experienceService", experienceService);
+  // histories
+  const historyService = new HistoryService(playerDao, historyDao);
+  fastify.decorate("historyService", historyService);
 });

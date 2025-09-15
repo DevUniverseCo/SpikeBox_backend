@@ -104,9 +104,9 @@ export const entities = {
       },
     },
   },
-  experiences: {
+  histories: {
     type: {} as History,
-    service: (app: FastifyInstance) => app.experienceService,
+    service: (app: FastifyInstance) => app.historyService,
     schemas: {
       get: {
         params: CommonSchema.Params.Id,

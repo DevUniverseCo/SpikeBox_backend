@@ -7,15 +7,15 @@ const route: FastifyPluginAsyncTypebox = async (app) => {
   app.get(
     "/players/:id",
     {
-      schema: entities.experiences.schemas.getByPlayerId,
+      schema: entities.histories.schemas.getByPlayerId,
     },
     async (request): Promise<DataResponseArrayType<History>> => {
       const { id } = request.params as { id: string };
-      const experiences = await app.experienceService.findByPlayerId(id);
+      const histories = await app.historyService.findByPlayerId(id);
 
       return {
-        message: `Experiences for player ${id} retrieved successfully`,
-        data: experiences,
+        message: `Histories for player ${id} retrieved successfully`,
+        data: histories,
       };
     }
   );
