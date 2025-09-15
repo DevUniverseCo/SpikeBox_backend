@@ -1,10 +1,3 @@
-export type ContactType = {
-  phone?: string;
-  email?: string;
-  address?: {
-    label?: string; // Nome o descrizione dell’indirizzo
-    latitude: number; // Latitudine
-    longitude: number; // Longitudine
-    mapsUrl?: string; // Link diretto a Google Maps (opzionale)
-  };
-};
+import { ContactEnum } from "../enums/contactEnum";
+
+export type ContactType = Partial<Record<ContactEnum, string>>;

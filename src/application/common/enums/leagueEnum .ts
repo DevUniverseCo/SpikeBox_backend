@@ -7,6 +7,9 @@ export const LeagueEnum = {
   B2: "serie B2",
   C: "serie C",
   D: "serie D",
+  NATIONAL: "national",
+  REGIONAL: "regional",
+  PROVINCIAL: "provincial",
 } as const;
 
 export type LeagueEnum = (typeof LeagueEnum)[keyof typeof LeagueEnum];

@@ -1,0 +1,34 @@
+import { Type } from "@sinclair/typebox";
+import { BaseSchema } from "../..";
+import { DataResponseArray, DataResponseSingle } from "../../commons/bodies";
+
+export const CreateClub = Type.Object({
+  name: Type.String(),
+  description: Type.Optional(Type.String()),
+  foundationYear: Type.Optional(Type.Number()),
+  clubImageUrl: Type.Optional(Type.String({ format: "uri" })),
+  contact: Type.Optional(
+    Type.Object({
+      phone: Type.Optional(Type.String({ format: "phone" })),
+      email: Type.Optional(Type.String({ format: "email" })),
+      address: Type.Optional(Type.String()),
+      website: Type.Optional(Type.String({ format: "uri" })),
+    })
+  ),
+  platform: Type.Optional(
+    Type.Object({
+      instagram: Type.Optional(Type.String({ format: "uri" })),
+      facebook: Type.Optional(Type.String({ format: "uri" })),
+      twitter: Type.Optional(Type.String({ format: "uri" })),
+      youtube: Type.Optional(Type.String({ format: "uri" })),
+      tiktok: Type.Optional(Type.String({ format: "uri" })),
+    })
+  ),
+});
+
+export const UpdateClub = Type.Partial(CreateClub);
+
+export const Club = Type.Intersect([BaseSchema.Bodies.Base, CreateClub]);
+
+export const ClubResponseSingle = DataResponseSingle(Club);
+export const ClubResponseArray = DataResponseArray(Club);

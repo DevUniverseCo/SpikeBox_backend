@@ -5,8 +5,8 @@ import { logger } from "../logger/logger";
 export class MongoDbClient {
   db: Db | null = null;
   private readonly client: MongoClient;
-  private uri: string;
-  private dbName: string;
+  private readonly uri: string;
+  private readonly dbName: string;
 
   constructor() {
     this.uri = config.database.mongo.uri;

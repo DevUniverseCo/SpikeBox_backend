@@ -2,7 +2,7 @@ import { MongoDbClient } from "./infrastructure/utils/database/mongoDbClient";
 
 import autoLoad from "@fastify/autoload";
 import { join } from "path";
-import { errorHook } from "./infrastructure/http/hooks/errorsHook";
+import { registerErrorHandler } from "./infrastructure/plugins/errors";
 import { FastifyApp } from "./infrastructure/utils/fastify";
 import { logger } from "./infrastructure/utils/logger/logger";
 
@@ -18,6 +18,7 @@ export class Application {
   async bootstrap(): Promise<FastifyApp> {
     try {
       await this.mongoDbClient.connect();
+      await this.fastifyApp.initFastify();
       this.fastifyApp
         .getInstance()
         .decorate("db", this.mongoDbClient.getDatabase());
@@ -31,8 +32,8 @@ export class Application {
         options: { prefix: "/api" },
       });
 
-      // hook
-      errorHook(this.fastifyApp.getInstance());
+      // Error handler
+      registerErrorHandler(this.fastifyApp.getInstance());
 
       this.setupGracefulShutdown();
 

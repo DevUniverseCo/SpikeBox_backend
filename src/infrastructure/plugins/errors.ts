@@ -1,8 +1,8 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { ErrorResponse } from "../../../application/common/models";
-import { logger } from "../../utils/logger/logger";
+import { ErrorResponseType } from "../../application/common/types/responseType";
+import { logger } from "../utils/logger/logger";
 
-export function errorHook(app: FastifyInstance) {
+export function registerErrorHandler(app: FastifyInstance) {
   app.setErrorHandler(
     (error: unknown, _request: FastifyRequest, reply: FastifyReply) => {
       const statusCode =
@@ -14,7 +14,7 @@ export function errorHook(app: FastifyInstance) {
         logger.error("Server error:", error);
       }
 
-      const response: ErrorResponse = {
+      const response: ErrorResponseType = {
         status: "error",
         statusCode,
         message:

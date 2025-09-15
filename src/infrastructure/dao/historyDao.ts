@@ -1,20 +1,17 @@
 import { Collection } from "mongodb";
-import { IExperienceRepository } from "../../application/core/experiences/experienceRepository";
-import {
-  CreateExperience,
-  Experience,
-} from "../../application/core/experiences/model";
+import { IHistoryRepository } from "../../application/core/histories/historyRepository";
+import { CreateHistory, History } from "../../application/core/histories/model";
 import { BaseDao } from "./baseDao";
 
-export class ExperienceDao
-  extends BaseDao<Experience, CreateExperience>
-  implements IExperienceRepository
+export class HistoryDao
+  extends BaseDao<History, CreateHistory>
+  implements IHistoryRepository
 {
   constructor(collection: Collection) {
     super(collection);
   }
 
-  async findByPlayerId(playerId: string): Promise<Experience[]> {
+  async findByPlayerId(playerId: string): Promise<History[]> {
     const docs = await this.collection.find({ playerId: playerId }).toArray();
     return docs.map((doc) => ({
       _id: doc._id.toString(),
@@ -25,6 +22,6 @@ export class ExperienceDao
       updatedAt:
         doc.updatedAt instanceof Date ? doc.updatedAt : new Date(doc.updatedAt),
       // add other Experience fields if needed
-    })) as Experience[];
+    })) as History[];
   }
 }

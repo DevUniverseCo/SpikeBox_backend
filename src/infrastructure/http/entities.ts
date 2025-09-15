@@ -1,11 +1,11 @@
 import { FastifyInstance } from "fastify";
 import { Club } from "../../application/core/clubs/model";
-import { Experience } from "../../application/core/experiences/model";
+import { History } from "../../application/core/histories/model";
 import { Player } from "../../application/core/players/model";
 import {
   ClubSchema,
   CommonSchema,
-  ExperienceSchema,
+  HistorySchema,
   PlayerSchema,
 } from "./schemas";
 
@@ -105,34 +105,34 @@ export const entities = {
     },
   },
   experiences: {
-    type: {} as Experience,
+    type: {} as History,
     service: (app: FastifyInstance) => app.experienceService,
     schemas: {
       get: {
         params: CommonSchema.Params.Id,
         response: {
-          200: ExperienceSchema.Bodies.ExperienceResponseSingle,
+          200: HistorySchema.Bodies.HistoryResponseSingle,
           ...ErrorResponses,
         },
       },
       getAll: {
         response: {
-          200: ExperienceSchema.Bodies.ExperienceResponseArray,
+          200: HistorySchema.Bodies.HistoryResponseArray,
           ...ErrorResponses,
         },
       },
       post: {
-        body: ExperienceSchema.Bodies.CreateExperience,
+        body: HistorySchema.Bodies.CreateHistory,
         response: {
-          201: ExperienceSchema.Bodies.Experience,
+          201: HistorySchema.Bodies.History,
           ...ErrorResponses,
         },
       },
       patch: {
         params: CommonSchema.Params.Id,
-        body: ExperienceSchema.Bodies.UpdateExperience,
+        body: HistorySchema.Bodies.UpdateHistory,
         response: {
-          200: ExperienceSchema.Bodies.Experience,
+          200: HistorySchema.Bodies.History,
           ...ErrorResponses,
         },
       },
@@ -146,7 +146,7 @@ export const entities = {
       getByPlayerId: {
         params: CommonSchema.Params.Id,
         response: {
-          200: ExperienceSchema.Bodies.ExperienceResponseArray,
+          200: HistorySchema.Bodies.HistoryResponseArray,
           ...ErrorResponses,
         },
       },

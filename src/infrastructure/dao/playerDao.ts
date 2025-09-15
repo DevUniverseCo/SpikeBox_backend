@@ -15,9 +15,7 @@ export class PlayerDao
     super(collection);
   }
 
-  findByIdWithExperiences(
-    id: string
-  ): Promise<PlayerWithExperiences | undefined> {
+  findByIdWithExperiences(id: string): Promise<PlayerWithExperiences> {
     throw new Error("Method not implemented.");
   }
 }

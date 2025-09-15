@@ -1,13 +1,13 @@
 import { NotFoundError } from "../../common/errors";
 import { BaseService } from "../base/baseService";
-import { IExperienceRepository } from "../experiences/experienceRepository";
+import { IHistoryRepository } from "../histories/historyRepository";
 import { CreatePlayer, Player, PlayerWithExperiences } from "./model";
 import { IPlayerRepository } from "./playerRepository";
 
 export class PlayerService extends BaseService<Player, CreatePlayer> {
   constructor(
     protected readonly playerRepository: IPlayerRepository,
-    protected readonly experienceRepository: IExperienceRepository
+    protected readonly experienceRepository: IHistoryRepository
   ) {
     super(playerRepository);
   }

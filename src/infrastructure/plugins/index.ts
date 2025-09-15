@@ -2,16 +2,16 @@ import fp from "fastify-plugin";
 import { Db } from "mongodb";
 import { BaseService } from "../../application/core/base/baseService";
 import { Club, CreateClub } from "../../application/core/clubs/model";
-import { ExperienceService } from "../../application/core/experiences/experienceService";
+import { HistoryService } from "../../application/core/histories/historyService";
 import { PlayerService } from "../../application/core/players/playerService";
 import { BaseDao } from "../dao/baseDao";
-import { ExperienceDao } from "../dao/experienceDao";
+import { HistoryDao } from "../dao/historyDao";
 import { PlayerDao } from "../dao/playerDao";
 
 declare module "fastify" {
   interface FastifyInstance {
     playerService: PlayerService;
-    experienceService: ExperienceService;
+    experienceService: HistoryService;
     clubService: BaseService<Club, CreateClub>;
     db: Db;
   }
@@ -23,7 +23,7 @@ export default fp(async (fastify) => {
   const experiencesCollection = fastify.db.collection("experiences");
 
   const playerDao = new PlayerDao(playersCollection);
-  const experienceDao = new ExperienceDao(experiencesCollection);
+  const experienceDao = new HistoryDao(experiencesCollection);
   const clubBaseDao = new BaseDao<Club, CreateClub>(clubsCollection);
 
   // club
@@ -35,6 +35,6 @@ export default fp(async (fastify) => {
   fastify.decorate("playerService", playerService);
 
   // experience
-  const experienceService = new ExperienceService(playerDao, experienceDao);
+  const experienceService = new HistoryService(playerDao, experienceDao);
   fastify.decorate("experienceService", experienceService);
 });
