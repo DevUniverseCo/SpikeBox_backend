@@ -1,7 +1,10 @@
 import { Type } from "@sinclair/typebox";
 import { BaseSchema } from "../..";
 import { PositionEnum } from "../../../../../application/common/enums/positionEum";
-import { DataResponseArray, DataResponseSingle } from "../../commons/bodies";
+import {
+  DataResponseArrayType,
+  DataResponseSingleType,
+} from "../../commons/bodies";
 
 export const CreateHistory = Type.Object({
   seasonId: Type.String(),
@@ -17,5 +20,5 @@ export const UpdateHistory = Type.Partial(CreateHistory);
 
 export const History = Type.Intersect([BaseSchema.Bodies.Base, CreateHistory]);
 
-export const HistoryResponseSingle = DataResponseSingle(History);
-export const HistoryResponseArray = DataResponseArray(History);
+export const HistoryResponseSingle = DataResponseSingleType(History);
+export const HistoryResponseArray = DataResponseArrayType(History);

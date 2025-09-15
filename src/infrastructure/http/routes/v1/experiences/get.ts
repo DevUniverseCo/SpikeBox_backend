@@ -1,5 +1,5 @@
 import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
-import { DataResponseArray } from "../../../../../application/common/models";
+import { DataResponseArrayType } from "../../../../../application/common/types/responseType";
 import { History } from "../../../../../application/core/histories/model";
 import { entities } from "../../../entities";
 
@@ -9,7 +9,7 @@ const route: FastifyPluginAsyncTypebox = async (app) => {
     {
       schema: entities.experiences.schemas.getByPlayerId,
     },
-    async (request): Promise<DataResponseArray<History>> => {
+    async (request): Promise<DataResponseArrayType<History>> => {
       const { id } = request.params as { id: string };
       const experiences = await app.experienceService.findByPlayerId(id);
 

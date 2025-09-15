@@ -1,19 +1,21 @@
 import { Type } from "@sinclair/typebox";
 import { BaseSchema } from "../..";
-import { GenderEnum } from "../../../../../application/common/enums/genderEnum";
-import { LeagueEnum } from "../../../../../application/common/enums/leagueEnum ";
-import { LevelEnum } from "../../../../../application/common/enums/levelEnum ";
+import {
+  DataResponseArrayType,
+  DataResponseSingleType,
+} from "../../commons/bodies";
 
-export const CreateTeam = Type.Object({
+export const CreateSeason = Type.Object({
   clubId: Type.String(),
-  seasonId: Type.String(),
-  name: Type.String(),
-  description: Type.Optional(Type.String()),
-  level: Type.Enum(LevelEnum),
-  gender: Type.Enum(GenderEnum),
-  league: Type.Enum(LeagueEnum),
+  name: Type.String(), // es: "2025/2026"
+  seasonKey: Type.String(), // e.g., "2022-2023"
+  startDate: Type.String({ format: "date-time" }),
+  endDate: Type.String({ format: "date-time" }),
 });
 
-export const UpdateTeam = Type.Partial(CreateTeam);
+export const UpdateSeason = Type.Partial(CreateSeason);
 
-export const Team = Type.Intersect([BaseSchema.Bodies.Base, CreateTeam]);
+export const Season = Type.Intersect([BaseSchema.Bodies.Base, CreateSeason]);
+
+export const SeasonResponseSingle = DataResponseSingleType(Season);
+export const SeasonResponseArray = DataResponseArrayType(Season);

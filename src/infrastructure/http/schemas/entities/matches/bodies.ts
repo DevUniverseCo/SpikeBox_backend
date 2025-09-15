@@ -1,6 +1,10 @@
 import { Type } from "@sinclair/typebox";
 import { BaseSchema } from "../..";
 import { StatusEnum } from "../../../../../application/common/enums/statusEnum";
+import {
+  DataResponseArrayType,
+  DataResponseSingleType,
+} from "../../commons/bodies";
 
 export const CreateMatch = Type.Object({
   clubId: Type.String(),
@@ -26,3 +30,6 @@ export const CreateMatch = Type.Object({
 export const UpdateMatch = Type.Partial(CreateMatch);
 
 export const Match = Type.Intersect([BaseSchema.Bodies.Base, CreateMatch]);
+
+export const MatchResponseSingle = DataResponseSingleType(Match);
+export const MatchResponseArray = DataResponseArrayType(Match);

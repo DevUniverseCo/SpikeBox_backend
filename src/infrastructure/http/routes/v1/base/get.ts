@@ -1,9 +1,9 @@
 import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 import { FastifyInstance } from "fastify";
 import {
-  DataResponseArray,
-  DataResponseSingle,
-} from "../../../../../application/common/models";
+  DataResponseArrayType,
+  DataResponseSingleType,
+} from "../../../../../application/common/types/responseType";
 import { entities } from "../../../entities";
 
 const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance) => {
@@ -13,7 +13,7 @@ const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance) => {
       {
         schema: config.schemas.get,
       },
-      async (request): Promise<DataResponseSingle<typeof config.type>> => {
+      async (request): Promise<DataResponseSingleType<typeof config.type>> => {
         const { id } = request.params as { id: string };
         const service = config.service(app);
         const item = await service.findById(id);
@@ -28,7 +28,7 @@ const route: FastifyPluginAsyncTypebox = async (app: FastifyInstance) => {
       {
         schema: config.schemas.getAll,
       },
-      async (): Promise<DataResponseArray<typeof config.type>> => {
+      async (): Promise<DataResponseArrayType<typeof config.type>> => {
         const service = config.service(app);
         const items = await service.findAll();
         return {

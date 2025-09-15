@@ -2,7 +2,10 @@ import { Type } from "@sinclair/typebox";
 import { BaseSchema } from "../..";
 import { CountryEnum } from "../../../../../application/common/enums/countryEnum";
 import { GenderEnum } from "../../../../../application/common/enums/genderEnum";
-import { DataResponseArray, DataResponseSingle } from "../../commons/bodies";
+import {
+  DataResponseArrayType,
+  DataResponseSingleType,
+} from "../../commons/bodies";
 import { History } from "../histories/bodies";
 
 export const CreatePlayer = Type.Object({
@@ -37,5 +40,5 @@ export const PlayerWithExperiences = Type.Intersect([
   }),
 ]);
 
-export const PlayerResponseSingle = DataResponseSingle(Player);
-export const PlayerResponseArray = DataResponseArray(Player);
+export const PlayerResponseSingle = DataResponseSingleType(Player);
+export const PlayerResponseArray = DataResponseArrayType(Player);

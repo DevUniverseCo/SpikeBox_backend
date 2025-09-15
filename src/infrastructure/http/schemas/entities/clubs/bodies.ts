@@ -1,6 +1,9 @@
 import { Type } from "@sinclair/typebox";
 import { BaseSchema } from "../..";
-import { DataResponseArray, DataResponseSingle } from "../../commons/bodies";
+import {
+  DataResponseArrayType,
+  DataResponseSingleType,
+} from "../../commons/bodies";
 
 export const CreateClub = Type.Object({
   name: Type.String(),
@@ -30,5 +33,5 @@ export const UpdateClub = Type.Partial(CreateClub);
 
 export const Club = Type.Intersect([BaseSchema.Bodies.Base, CreateClub]);
 
-export const ClubResponseSingle = DataResponseSingle(Club);
-export const ClubResponseArray = DataResponseArray(Club);
+export const ClubResponseSingle = DataResponseSingleType(Club);
+export const ClubResponseArray = DataResponseArrayType(Club);
