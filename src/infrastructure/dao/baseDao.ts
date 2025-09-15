@@ -1,10 +1,5 @@
-import {
-  Collection,
-  ObjectId,
-  OptionalUnlessRequiredId,
-  WithId,
-} from "mongodb";
-import { IBaseRepository } from "../../application/entities/base/baseRepository";
+import { Collection, ObjectId } from "mongodb";
+import { IBaseRepository } from "../../application/core/base/baseRepository";
 
 export class BaseDao<Entity, CreateEntity>
   implements IBaseRepository<Entity, CreateEntity>
@@ -12,14 +7,12 @@ export class BaseDao<Entity, CreateEntity>
   constructor(readonly collection: Collection) {}
 
   async create(createEntity: CreateEntity): Promise<Entity> {
-    const now = new Date();
-
     const doc = {
       ...createEntity,
       locked: false,
-      createdAt: now,
-      updatedAt: now,
-    } as OptionalUnlessRequiredId<Entity>;
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
     const result = await this.collection.insertOne(doc);
     const insertedDoc = {
@@ -30,30 +23,41 @@ export class BaseDao<Entity, CreateEntity>
   }
 
   async findAll(): Promise<Entity[]> {
-    return (await this.collection.find().toArray()) as Entity[];
+    const docs = await this.collection.find().toArray();
+    return docs.map((doc) => ({
+      ...doc,
+      _id: doc._id.toString(),
+    })) as Entity[];
   }
 
   async findById(id: string): Promise<Entity | undefined> {
-    const doc = await this.collection.findOne({
-      _id: new ObjectId(id),
-    });
-    return (doc as Entity) ?? undefined;
+    const _id = new ObjectId(id);
+    const doc = await this.collection.findOne({ _id });
+    if (!doc) return undefined;
+    return {
+      ...doc,
+      _id: doc._id.toString(),
+    } as Entity;
   }
 
+  //TODO : testare se mettendo un _id non esistenete doc sia null
   async update(id: string, entity: CreateEntity): Promise<Entity | undefined> {
+    const _id = new ObjectId(id);
     const updatedDoc = { ...entity, updatedAt: new Date() } as Partial<Entity>;
     const doc = await this.collection.findOneAndUpdate(
-      { _id: new ObjectId(id) },
+      { _id },
       { $set: updatedDoc },
       { returnDocument: "after" }
     );
-    return (doc as unknown as Entity) ?? undefined;
+    if (!doc) return undefined;
+    return doc as Entity;
   }
 
+  //TODO : testare se mettendo un _id non esistenete doc sia null
   async delete(id: string): Promise<Entity | undefined> {
-    const doc = await this.collection.deleteOne({
-      _id: new ObjectId(id),
-    } as WithId<Entity>);
-    return (doc as Entity) ?? undefined;
+    const _id = new ObjectId(id);
+    const doc = await this.collection.deleteOne({ _id });
+    if (!doc) return undefined;
+    return doc as Entity;
   }
 }

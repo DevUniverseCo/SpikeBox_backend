@@ -1,3 +1,4 @@
+import { NotFoundError } from "../../common/errors";
 import { BaseService } from "../base/baseService";
 import { IExperienceRepository } from "../experiences/experienceRepository";
 import { CreatePlayer, Player, PlayerWithExperiences } from "./model";
@@ -11,11 +12,9 @@ export class PlayerService extends BaseService<Player, CreatePlayer> {
     super(playerRepository);
   }
 
-  async findByIdWithExperiences(
-    id: string
-  ): Promise<PlayerWithExperiences | undefined> {
+  async findByIdWithExperiences(id: string): Promise<PlayerWithExperiences> {
     const player = await this.playerRepository.findById(id);
-    if (!player) return undefined;
+    if (!player) throw new NotFoundError(`Player with id ${id} not found`);
     const experiences = await this.experienceRepository.findByPlayerId(id);
     return { ...player, experiences };
   }

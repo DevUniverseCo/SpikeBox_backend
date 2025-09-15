@@ -3,7 +3,5 @@ import { CreatePlayer, Player, PlayerWithExperiences } from "./model";
 
 export interface IPlayerRepository
   extends IBaseRepository<Player, CreatePlayer> {
-  findByIdWithExperiences(
-    id: string
-  ): Promise<PlayerWithExperiences | undefined>;
+  findByIdWithExperiences(id: string): Promise<PlayerWithExperiences>;
 }

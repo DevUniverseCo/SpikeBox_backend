@@ -1,18 +1,19 @@
+import { CountryEnum } from "../../common/enums/countryEnum";
 import { GenderEnum } from "../../common/enums/genderEnum";
-import { PlayerRoleEnum } from "../../common/enums/playerRoleEum";
-import { SocialLinks } from "../../common/enums/socialEnum";
+import { PlatformType } from "../../common/types/platformType";
 import { Experience } from "../experiences/model";
 
 export type CreatePlayer = {
   firstName: string;
   lastName: string;
-  role: PlayerRoleEnum;
-  biography?: string;
-  birthDate?: string;
-  nationality?: string;
+  birthDate?: Date;
   gender?: GenderEnum;
-  thumbnailUrl?: string;
-  socialLinks?: SocialLinks;
+  heightCm?: number;
+  weightKg?: number;
+  country?: CountryEnum;
+  biography?: string;
+  profileImageUrl?: string;
+  platform?: PlatformType;
 };
 
 export type Player = {

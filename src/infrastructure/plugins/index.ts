@@ -1,9 +1,9 @@
 import fp from "fastify-plugin";
 import { Db } from "mongodb";
-import { BaseService } from "../../application/entities/base/baseService";
-import { Club, CreateClub } from "../../application/entities/clubs/model";
-import { ExperienceService } from "../../application/entities/experiences/experienceService";
-import { PlayerService } from "../../application/entities/players/playerService";
+import { BaseService } from "../../application/core/base/baseService";
+import { Club, CreateClub } from "../../application/core/clubs/model";
+import { ExperienceService } from "../../application/core/experiences/experienceService";
+import { PlayerService } from "../../application/core/players/playerService";
 import { BaseDao } from "../dao/baseDao";
 import { ExperienceDao } from "../dao/experienceDao";
 import { PlayerDao } from "../dao/playerDao";

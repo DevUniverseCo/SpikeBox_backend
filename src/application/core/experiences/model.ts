@@ -1,14 +1,17 @@
 import { LeagueEnum } from "../../common/enums/leagueEnum ";
-import { PlayerRoleEnum } from "../../common/enums/playerRoleEum";
+import { PositionEnum } from "../../common/enums/positionEum";
 
 export type CreateExperience = {
-  playerId: string;
   clubId: string;
+  teamId: string;
+  playerId: string;
+  seasonKey: string; // e.g., "2022-2023"
+  fromDate: Date; // e.g., "2022-08-01"
+  toDate: Date; // e.g., "2023-05-30"
   league: LeagueEnum;
-  seasonStartYear: number;
-  seasonEndYear: number;
-  role: PlayerRoleEnum;
+  position: PositionEnum;
   jerseyNumber?: number;
+  isCaptain?: boolean;
 };
 
 export type Experience = {

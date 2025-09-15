@@ -1,9 +1,9 @@
 import { Collection } from "mongodb";
-import { IExperienceRepository } from "../../application/entities/experiences/experienceRepository";
+import { IExperienceRepository } from "../../application/core/experiences/experienceRepository";
 import {
   CreateExperience,
   Experience,
-} from "../../application/entities/experiences/model";
+} from "../../application/core/experiences/model";
 import { BaseDao } from "./baseDao";
 
 export class ExperienceDao

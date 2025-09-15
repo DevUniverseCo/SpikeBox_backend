@@ -1,6 +1,6 @@
 import { Type } from "@sinclair/typebox";
 import { GenderEnum } from "../../../../application/common/enums/genderEnum";
-import { PlayerRoleEnum } from "../../../../application/common/enums/playerRoleEum";
+import { PlayerRoleEnum } from "../../../../application/common/enums/positionEum";
 import { DataResponseArray, DataResponseSingle } from "../commons/bodies";
 import { Experience } from "../experiences/bodies";
 

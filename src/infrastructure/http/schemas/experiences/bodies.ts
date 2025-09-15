@@ -1,6 +1,6 @@
 import { Type } from "@sinclair/typebox";
 import { LeagueEnum } from "../../../../application/common/enums/leagueEnum ";
-import { PlayerRoleEnum } from "../../../../application/common/enums/playerRoleEum";
+import { PlayerRoleEnum } from "../../../../application/common/enums/positionEum";
 import { DataResponseArray, DataResponseSingle } from "../commons/bodies";
 
 export const CreateExperience = Type.Object({

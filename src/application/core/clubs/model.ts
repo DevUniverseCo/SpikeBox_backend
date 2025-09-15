@@ -1,13 +1,13 @@
-import { SocialLinks } from "../../common/enums/socialEnum";
+import { ContactType } from "../../common/types/contactType";
+import { PlatformType } from "../../common/types/platformType";
 
 export type CreateClub = {
   name: string;
-  city?: string;
-  country?: string;
+  description?: string;
   foundationYear?: number;
-  website?: string;
-  logoUrl?: string;
-  socialLinks?: SocialLinks;
+  clubImageUrl?: string;
+  contact?: ContactType;
+  platform?: PlatformType;
 };
 
 export type Club = {

@@ -3,8 +3,8 @@ import {
   CreatePlayer,
   Player,
   PlayerWithExperiences,
-} from "../../application/entities/players/model";
-import { IPlayerRepository } from "../../application/entities/players/playerRepository";
+} from "../../application/core/players/model";
+import { IPlayerRepository } from "../../application/core/players/playerRepository";
 import { BaseDao } from "./baseDao";
 
 export class PlayerDao

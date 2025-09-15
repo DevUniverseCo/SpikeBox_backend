@@ -1,6 +1,6 @@
 import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 import { DataResponseArray } from "../../../../../application/common/models";
-import { Experience } from "../../../../../application/entities/experiences/model";
+import { Experience } from "../../../../../application/core/experiences/model";
 import { entities } from "../../../entities";
 
 const route: FastifyPluginAsyncTypebox = async (app) => {

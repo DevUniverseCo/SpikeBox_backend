@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
-import { Club } from "../../application/entities/clubs/model";
-import { Experience } from "../../application/entities/experiences/model";
-import { Player } from "../../application/entities/players/model";
+import { Club } from "../../application/core/clubs/model";
+import { Experience } from "../../application/core/experiences/model";
+import { Player } from "../../application/core/players/model";
 import {
   ClubSchema,
   CommonSchema,

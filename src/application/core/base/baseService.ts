@@ -10,9 +10,9 @@ export class BaseService<Entity, CreateEntity> {
     return this.baseRepository.create(createEntity);
   }
 
-  async findById(id: string): Promise<Entity | undefined> {
+  async findById(id: string): Promise<Entity> {
     const item = await this.baseRepository.findById(id);
-    this.handleNotFound(item, id);
+    this.handleNotFound(item, id); // Ensure item is not undefined
     return item;
   }
 
@@ -20,22 +20,19 @@ export class BaseService<Entity, CreateEntity> {
     return await this.baseRepository.findAll();
   }
 
-  async update(
-    id: string,
-    updateEntity: CreateEntity
-  ): Promise<Entity | undefined> {
+  async update(id: string, updateEntity: CreateEntity): Promise<Entity> {
     const updatedItem = await this.baseRepository.update(id, updateEntity);
-    this.handleNotFound(updatedItem, id);
+    this.handleNotFound(updatedItem, id); // Ensure updatedItem is not undefined
     return updatedItem;
   }
 
-  async delete(id: string): Promise<Entity | undefined> {
+  async delete(id: string): Promise<Entity> {
     const item = await this.baseRepository.delete(id);
-    this.handleNotFound(item, id);
+    this.handleNotFound(item, id); // Ensure item is not undefined
     return item;
   }
 
   private handleNotFound(entity: Entity | undefined, id: string): void {
-    if (!entity) throw new NotFoundError(`Entity with id ${id} not found`);
+    if (!entity) throw new NotFoundError(`Entity with id ${id} not found`); // centralized not found handling to hook
   }
 }
