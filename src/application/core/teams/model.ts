@@ -10,7 +10,7 @@ export type CreateTeam = {
   description?: string;
   level: LevelEnum; // livello della squadra (es. Under 15, Under 17, Prima Squadra, etc.)
   gender: GenderEnum; // sessione maschile o femminile
-  league?: LeagueEnum;
+  league: LeagueEnum;
 };
 
 export type Team = Base & CreateTeam;
