@@ -1,18 +1,18 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { ErrorResponseType } from "../../application/common/types/responseType";
-import { logger } from "../utils/logger/logger";
+import fp from "fastify-plugin";
+import { ErrorResponseType } from "../../../application/common/types/responseType";
+import { logger } from "../../logger/logger";
 
-export function registerErrorHandler(app: FastifyInstance) {
-  app.setErrorHandler(
+// l'ho fatto diventare un plugin per poterlo usare con autoload
+export const register = fp(async (fastify: FastifyInstance) => {
+  fastify.setErrorHandler(
     (error: unknown, _request: FastifyRequest, reply: FastifyReply) => {
       const statusCode =
         typeof (error as any).statusCode === "number"
           ? (error as any).statusCode
           : 500;
 
-      if (statusCode >= 500) {
-        logger.error("Server error:", error);
-      }
+      if (statusCode >= 500) logger.error("Server error:", error);
 
       const response: ErrorResponseType = {
         status: "error",
@@ -24,4 +24,4 @@ export function registerErrorHandler(app: FastifyInstance) {
       reply.status(statusCode).send(response);
     }
   );
-}
+});

@@ -1,6 +1,6 @@
 import { Db, MongoClient } from "mongodb";
+import { logger } from "../../logger/logger";
 import { config } from "../config/mongoConfig";
-import { logger } from "../logger/logger";
 
 export class MongoDbClient {
   db: Db | null = null;
