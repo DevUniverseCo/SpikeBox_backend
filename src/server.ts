@@ -17,7 +17,7 @@ const buildApp = async () => {
   });
 
   await fastify.register(autoLoad, {
-    dir: path.join(__dirname, "infrastructure/http/plugins"),
+    dir: path.join(__dirname, "infrastructure/fastify/plugins"),
   });
 
   await fastify.register(autoLoad, {
