@@ -1,6 +1,9 @@
 import { Collection } from "mongodb";
-import { IHistoryRepository } from "../../application/core/histories/historyRepository";
-import { CreateHistory, History } from "../../application/core/histories/model";
+import { IHistoryRepository } from "../../../../application/core/histories/historyRepository";
+import {
+  CreateHistory,
+  History,
+} from "../../../../application/core/histories/model";
 import { BaseDao } from "./baseDao";
 
 export class HistoryDao

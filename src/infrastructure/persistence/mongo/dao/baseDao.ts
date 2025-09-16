@@ -1,5 +1,5 @@
 import { Collection, ObjectId } from "mongodb";
-import { IBaseRepository } from "../../application/core/base/baseRepository";
+import { IBaseRepository } from "../../../../application/core/base/baseRepository";
 
 export class BaseDao<Entity, CreateEntity>
   implements IBaseRepository<Entity, CreateEntity>

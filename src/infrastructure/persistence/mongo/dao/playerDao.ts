@@ -1,10 +1,11 @@
 import { Collection } from "mongodb";
+
 import {
   CreatePlayer,
   Player,
   PlayerWithExperiences,
-} from "../../application/core/players/model";
-import { IPlayerRepository } from "../../application/core/players/playerRepository";
+} from "../../../../application/core/players/model";
+import { IPlayerRepository } from "../../../../application/core/players/playerRepository";
 import { BaseDao } from "./baseDao";
 
 export class PlayerDao

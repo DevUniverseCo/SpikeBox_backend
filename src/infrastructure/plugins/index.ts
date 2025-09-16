@@ -4,9 +4,9 @@ import { BaseService } from "../../application/core/base/baseService";
 import { Club, CreateClub } from "../../application/core/clubs/model";
 import { HistoryService } from "../../application/core/histories/historyService";
 import { PlayerService } from "../../application/core/players/playerService";
-import { BaseDao } from "../dao/baseDao";
-import { HistoryDao } from "../dao/historyDao";
-import { PlayerDao } from "../dao/playerDao";
+import { BaseDao } from "../persistence/mongo/dao/baseDao";
+import { HistoryDao } from "../persistence/mongo/dao/historyDao";
+import { PlayerDao } from "../persistence/mongo/dao/playerDao";
 
 declare module "fastify" {
   interface FastifyInstance {
