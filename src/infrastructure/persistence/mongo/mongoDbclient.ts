@@ -22,7 +22,7 @@ export class MongoDbClient {
     }
 
     this.dbName = dbName;
-    this.uri = `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+    this.uri = `mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority`;
 
     this.client = new MongoClient(this.uri);
   }

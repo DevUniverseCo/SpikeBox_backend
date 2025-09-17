@@ -3,12 +3,9 @@ import Fastify from "fastify";
 import path from "path";
 
 import {
-  PluginCors,
+  CstPluginErrors,
+  CstPluginServices,
   PluginEnv,
-  PluginError,
-  PluginHelmet,
-  PluginSwaggerCore,
-  PluginSwaggerUi,
 } from "./infrastructure/fastify";
 import { logger } from "./infrastructure/logger/logger";
 import { MongoDbClient } from "./infrastructure/persistence/mongo/mongoDbclient";
@@ -27,17 +24,10 @@ const buildApp = async () => {
 
   // Registrazione dei plugin
   await PluginEnv.register(fastify);
-  PluginCors.register(fastify);
-  PluginError.register(fastify);
-  PluginHelmet.register(fastify);
-  PluginSwaggerCore.register(fastify);
-  PluginSwaggerUi.register(fastify);
-
-  // Caricamento automatico delle rotte
-  await fastify.register(autoLoad, {
-    dir: path.join(__dirname, "infrastructure/http/routes"),
-    options: { prefix: "/api" },
-  });
+  // await PluginCors.register(fastify);
+  // await PluginHelmet.register(fastify);
+  // await PluginSwaggerCore.register(fastify);
+  // await PluginSwaggerUi.register(fastify);
 
   fastify.get("/ping", async () => ({ pong: "it works!" }));
 
@@ -60,14 +50,32 @@ const buildApp = async () => {
     }
   });
 
-  fastify.addHook("onReady", async () => {
-    try {
-      await mongoClient.connect();
-    } catch (err) {
-      logger.error("❌ Failed to connect to MongoDB:", err);
-      process.exit(1); // blocca se DB non disponibile
-    }
+  await mongoClient.connect();
+  CstPluginErrors.register(fastify);
+  CstPluginServices.register(fastify);
+
+  // Caricamento automatico delle rotte
+  await fastify.register(autoLoad, {
+    dir: path.join(__dirname, "infrastructure/http/routes"),
+    options: { prefix: "/api" },
   });
+
+  // fastify.addHook("onReady", async () => {
+  //   try {
+  //     await mongoClient.connect();
+  //     CstPluginErrors.register(fastify);
+  //     CstPluginServices.register(fastify);
+
+  //     // Caricamento automatico delle rotte
+  //     await fastify.register(autoLoad, {
+  //       dir: path.join(__dirname, "infrastructure/http/routes"),
+  //       options: { prefix: "/api" },
+  //     });
+  //   } catch (err) {
+  //     logger.error("❌ Failed to connect to MongoDB:", err);
+  //     process.exit(1); // blocca se DB non disponibile
+  //   }
+  // });
 
   // Setup graceful shutdown con timeout
   const setupGracefulShutdown = () => {

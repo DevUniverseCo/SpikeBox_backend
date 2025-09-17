@@ -16,5 +16,10 @@ declare module "fastify" {
         db: Db;
       };
     };
+    services: {
+      playerService: PlayerService;
+      historyService: HistoryService;
+      clubService: BaseService<Club, CreateClub>;
+    };
   }
 }

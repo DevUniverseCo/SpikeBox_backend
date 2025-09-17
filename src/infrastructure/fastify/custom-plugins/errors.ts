@@ -28,3 +28,5 @@ export const register = fp(async (fastify: FastifyInstance) => {
     }
   );
 });
+
+// TODO: integrare fastify/sensible per gestire 404 e 500 automaticamente eliminando la classe errors.ts
