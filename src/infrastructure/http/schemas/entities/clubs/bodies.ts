@@ -12,7 +12,7 @@ export const CreateClub = Type.Object({
   clubImageUrl: Type.Optional(Type.String({ format: "uri" })),
   contact: Type.Optional(
     Type.Object({
-      phone: Type.Optional(Type.String({ format: "phone" })),
+      phone: Type.Optional(Type.String()),
       email: Type.Optional(Type.String({ format: "email" })),
       address: Type.Optional(Type.String()),
       website: Type.Optional(Type.String({ format: "uri" })),
