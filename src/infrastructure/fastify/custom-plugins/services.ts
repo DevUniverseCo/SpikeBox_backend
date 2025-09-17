@@ -9,7 +9,7 @@ import { HistoryDao } from "../../persistence/mongo/daos/historyDao";
 import { PlayerDao } from "../../persistence/mongo/daos/playerDao";
 
 export const register = fp(async (fastify: FastifyInstance) => {
-  const { db } = fastify.database?.mongo.db || {};
+  const { client, db } = fastify.database?.mongo || {};
   if (!db) {
     throw new Error("MongoDB is not initialized");
   }
@@ -22,15 +22,14 @@ export const register = fp(async (fastify: FastifyInstance) => {
   const historyDao = new HistoryDao(historiesCollection);
   const clubBaseDao = new BaseDao<Club, CreateClub>(clubsCollection);
 
-  // club
   const clubBaseService = new BaseService(clubBaseDao);
-  fastify.decorate("clubService", clubBaseService);
-
-  // players
   const playerService = new PlayerService(playerDao, historyDao);
-  fastify.decorate("playerService", playerService);
+  const historyService = new HistoryService(playerDao, historyDao);
 
-  // experience
-  const hisotryService = new HistoryService(playerDao, historyDao);
-  fastify.decorate("hisotryService", hisotryService);
+  // Decora un unico oggetto services
+  fastify.decorate("services", {
+    clubService: clubBaseService,
+    playerService,
+    historyService,
+  });
 });

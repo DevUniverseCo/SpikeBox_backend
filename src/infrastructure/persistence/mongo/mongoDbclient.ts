@@ -2,7 +2,7 @@ import { Db, MongoClient } from "mongodb";
 import { logger } from "../../logger/logger";
 
 export class MongoDbClient {
-  private db: Db | null = null;
+  db: Db | null = null;
   private readonly client: MongoClient;
   private readonly uri: string;
   private readonly dbName: string;

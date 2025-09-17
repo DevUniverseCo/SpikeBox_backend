@@ -5,7 +5,11 @@ import path from "path";
 import {
   CstPluginErrors,
   CstPluginServices,
+  PluginCors,
   PluginEnv,
+  PluginHelmet,
+  PluginSwaggerCore,
+  PluginSwaggerUi,
 } from "./infrastructure/fastify";
 import { logger } from "./infrastructure/logger/logger";
 import { MongoDbClient } from "./infrastructure/persistence/mongo/mongoDbclient";
@@ -24,12 +28,10 @@ const buildApp = async () => {
 
   // Registrazione dei plugin
   await PluginEnv.register(fastify);
-  // await PluginCors.register(fastify);
-  // await PluginHelmet.register(fastify);
-  // await PluginSwaggerCore.register(fastify);
-  // await PluginSwaggerUi.register(fastify);
-
-  fastify.get("/ping", async () => ({ pong: "it works!" }));
+  await PluginCors.register(fastify);
+  await PluginHelmet.register(fastify);
+  await PluginSwaggerCore.register(fastify);
+  await PluginSwaggerUi.register(fastify);
 
   // --- MongoDB ---
   const mongoClient = new MongoDbClient({
@@ -38,8 +40,6 @@ const buildApp = async () => {
     dbName: fastify.config.MONGODB_DATABASE,
     cluster: fastify.config.MONGODB_CLUSTER,
   });
-  // Decora Fastify con il client per poterlo usare nelle route
-  fastify.decorate("mongo", mongoClient);
 
   // --- Start e stop MongoDB con lifecycle hooks ---
   fastify.addHook("onClose", async () => {
@@ -51,6 +51,9 @@ const buildApp = async () => {
   });
 
   await mongoClient.connect();
+  fastify.decorate("database", {
+    mongo: { client: mongoClient, db: mongoClient.db },
+  });
   CstPluginErrors.register(fastify);
   CstPluginServices.register(fastify);
 
