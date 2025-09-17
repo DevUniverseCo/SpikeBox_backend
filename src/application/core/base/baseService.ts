@@ -10,6 +10,10 @@ export class BaseService<Entity, CreateEntity> {
     return this.baseRepository.create(createEntity);
   }
 
+  async createMany(createEntities: CreateEntity[]): Promise<Entity[]> {
+    return this.baseRepository.createMany(createEntities);
+  }
+
   async findById(id: string): Promise<Entity | undefined> {
     const item = await this.baseRepository.findById(id);
     this.handleNotFound(item, id); // Ensure item is not undefined

@@ -1,3 +1,4 @@
+import { CountryEnum } from "../../common/enums/countryEnum";
 import { ContactType } from "../../common/types/contactType";
 import { PlatformType } from "../../common/types/platformType";
 import { Base } from "../base/model";
@@ -5,6 +6,8 @@ import { Base } from "../base/model";
 export type CreateClub = {
   name: string;
   description?: string;
+  town?: string;
+  country?: CountryEnum;
   foundationYear?: number;
   clubImageUrl?: string;
   contact?: ContactType;

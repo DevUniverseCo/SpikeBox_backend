@@ -22,6 +22,26 @@ export class BaseDao<Entity, CreateEntity>
     return insertedDoc;
   }
 
+  async createMany(createEntities: CreateEntity[]): Promise<Entity[]> {
+    if (!createEntities.length) return [];
+
+    const docs = createEntities.map((entity) => ({
+      ...entity,
+      locked: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }));
+
+    const result = await this.collection.insertMany(docs, { ordered: false });
+
+    // aggiungo _id come stringa per uniformità con gli altri metodi
+    return docs.map((doc, index) => ({
+      ...doc,
+      _id:
+        result.insertedIds[index]?.toHexString?.() ?? result.insertedIds[index],
+    })) as Entity[];
+  }
+
   async findAll(): Promise<Entity[]> {
     const docs = await this.collection.find().toArray();
     return docs.map((doc) => ({

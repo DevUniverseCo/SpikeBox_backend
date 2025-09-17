@@ -1,11 +1,15 @@
 import { FastifyInstance } from "fastify";
 import { Club } from "../../application/core/clubs/model";
 import { Player } from "../../application/core/players/model";
+import { Season } from "../../application/core/seasons/model";
+import { Team } from "../../application/core/teams/model";
 import {
   ClubSchema,
   CommonSchema,
   HistorySchema,
   PlayerSchema,
+  SeasonSchema,
+  TeamSchema,
 } from "./schemas";
 
 function createCrudSchemas<T>({
@@ -13,11 +17,13 @@ function createCrudSchemas<T>({
   typeArray,
   createBody,
   updateBody,
+  createManyBody,
 }: {
   typeSingle: any;
   typeArray: any;
   createBody: any;
   updateBody: any;
+  createManyBody: any;
 }) {
   const baseErrorResponses = {
     404: CommonSchema.Errors.ApiErrorResponse,
@@ -43,6 +49,10 @@ function createCrudSchemas<T>({
       params: CommonSchema.Params.Id,
       response: { 204: { type: "boolean" }, ...baseErrorResponses },
     },
+    seed: {
+      body: createManyBody,
+      response: { 201: typeArray, ...baseErrorResponses },
+    },
   };
 }
 
@@ -61,6 +71,7 @@ export const entities = {
         typeArray: PlayerSchema.Bodies.PlayerResponseArray,
         createBody: PlayerSchema.Bodies.CreatePlayer,
         updateBody: PlayerSchema.Bodies.UpdatePlayer,
+        createManyBody: PlayerSchema.Bodies.SeedPlayer,
       }),
       getWithExperiences: {
         params: CommonSchema.Params.Id,
@@ -71,6 +82,19 @@ export const entities = {
       },
     },
   },
+  teams: {
+    type: {} as Team,
+    service: (app: FastifyInstance) => app.services.teamService,
+    schemas: {
+      ...createCrudSchemas({
+        typeSingle: TeamSchema.Bodies.TeamResponseSingle,
+        typeArray: TeamSchema.Bodies.TeamResponseArray,
+        createBody: TeamSchema.Bodies.CreateTeam,
+        updateBody: TeamSchema.Bodies.UpdateTeam,
+        createManyBody: TeamSchema.Bodies.SeedTeam,
+      }),
+    },
+  },
   clubs: {
     type: {} as Club,
     service: (app: FastifyInstance) => app.services.clubService,
@@ -79,6 +103,18 @@ export const entities = {
       typeArray: ClubSchema.Bodies.ClubResponseArray,
       createBody: ClubSchema.Bodies.CreateClub,
       updateBody: ClubSchema.Bodies.UpdateClub,
+      createManyBody: ClubSchema.Bodies.SeedClub,
+    }),
+  },
+  seasons: {
+    type: {} as Season,
+    service: (app: FastifyInstance) => app.services.seasonService,
+    schemas: createCrudSchemas({
+      typeSingle: SeasonSchema.Bodies.SeasonResponseSingle,
+      typeArray: SeasonSchema.Bodies.SeasonResponseArray,
+      createBody: SeasonSchema.Bodies.CreateSeason,
+      updateBody: SeasonSchema.Bodies.UpdateSeason,
+      createManyBody: SeasonSchema.Bodies.SeedSeason,
     }),
   },
   histories: {
@@ -90,6 +126,7 @@ export const entities = {
         typeArray: HistorySchema.Bodies.HistoryResponseArray,
         createBody: HistorySchema.Bodies.CreateHistory,
         updateBody: HistorySchema.Bodies.UpdateHistory,
+        createManyBody: HistorySchema.Bodies.SeedHistory,
       }),
       getByPlayerId: {
         params: CommonSchema.Params.Id,

@@ -1,0 +1,119 @@
+[
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c647",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "setter",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c648",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "setter",
+    "isCaptain": true,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c649",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "opposite",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c64a",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "opposite",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c64b",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "outside hitter",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c64c",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "outside hitter",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c64d",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "outside hitter",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c64e",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "outside hitter",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c64f",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "middle-blocker",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c650",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "middle-blocker",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c651",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "middle-blocker",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c653",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "libero",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  },
+  {
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "playerId": "68cab0fdd41934da8d56c652",
+    "teamId": "68cac3def25b7dd13324aec6",
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "position": "libero",
+    "isCaptain": false,
+    "jerseyNumber": 0
+  }
+]

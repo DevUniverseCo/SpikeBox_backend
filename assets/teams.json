@@ -1,0 +1,29 @@
+[
+  {
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "seasonId": "68cac18134e4441d06ddafb0",
+    "name": "Volley Veneto Cavaion",
+    "description": "Squadra competitiva che rappresenta il territorio veneto, con una forte tradizione e supporto da parte della comunità locale.",
+    "level": "senior",
+    "gender": "male",
+    "league": "serie B"
+  },
+  {
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "seasonId": "68cac18134e4441d06ddafb1",
+    "name": "Volley Veneto Cavaion",
+    "description": "Squadra competitiva che rappresenta il territorio veneto, con una forte tradizione e supporto da parte della comunità locale.",
+    "level": "senior",
+    "gender": "male",
+    "league": "serie B"
+  },
+  {
+    "clubId": "68cab71e2f252bd4af6be67d",
+    "seasonId": "68cac18134e4441d06ddafb2",
+    "name": "Volley Veneto Cavaion",
+    "description": "Squadra competitiva che rappresenta il territorio veneto, con una forte tradizione e supporto da parte della comunità locale.",
+    "level": "senior",
+    "gender": "male",
+    "league": "serie B"
+  }
+]

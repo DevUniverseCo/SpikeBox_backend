@@ -17,8 +17,10 @@ export const CreateHistory = Type.Object({
 });
 
 export const UpdateHistory = Type.Partial(CreateHistory);
+export const SeedHistory = Type.Array(CreateHistory);
 
 export const History = Type.Intersect([BaseSchema.Bodies.Base, CreateHistory]);
+export const HistoryArray = Type.Array(History);
 
 export const HistoryResponseSingle = DataResponseSingleType(History);
 export const HistoryResponseArray = DataResponseArrayType(History);

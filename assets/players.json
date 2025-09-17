@@ -1,0 +1,131 @@
+[
+  {
+    "firstName": "Filipo",
+    "lastName": "Mezzani",
+    "birthDate": "2004-01-01",
+    "gender": "male",
+    "heightCm": 190,
+    "country": "Italy",
+    "handedness": "Left",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/17538854998Wy6c.png"
+  },
+  {
+    "firstName": "Niccolò",
+    "lastName": "Depalma",
+    "birthDate": "2002-11-09",
+    "gender": "male",
+    "heightCm": 194,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/16831094616twko.png"
+  },
+  {
+    "firstName": "Andrea",
+    "lastName": "Polacco",
+    "birthDate": "2003-03-20",
+    "gender": "male",
+    "heightCm": 200,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/1573579727b4Dar.png"
+  },
+  {
+    "firstName": "William",
+    "lastName": "Ravelli",
+    "birthDate": "1994-01-01",
+    "gender": "male",
+    "heightCm": 190,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/16739978801KwyJ.png"
+  },
+  {
+    "firstName": "William",
+    "lastName": "Ravelli",
+    "birthDate": "1994-01-01",
+    "gender": "male",
+    "heightCm": 190,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/16739978801KwyJ.png"
+  },
+  {
+    "firstName": "Davide",
+    "lastName": "Polacco",
+    "birthDate": "1998-12-15",
+    "gender": "male",
+    "heightCm": 192,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/1604240338u1CeW.png"
+  },
+  {
+    "firstName": "Matteo",
+    "lastName": "Dietre",
+    "gender": "male",
+    "heightCm": 190,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/default-player-M.jpg"
+  },
+  {
+    "firstName": "Michele",
+    "lastName": "Michele",
+    "birthDate": "1994-04-03",
+    "gender": "male",
+    "heightCm": 190,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/1751557502CB2zV.png"
+  },
+  {
+    "firstName": "Alessandro",
+    "lastName": "Acuti",
+    "birthDate": "2000-08-13",
+    "gender": "male",
+    "heightCm": 198,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/16718884192VdOU.png"
+  },
+  {
+    "firstName": "Ihosvany",
+    "lastName": "Hernández Jr.",
+    "birthDate": "1999-03-13",
+    "gender": "male",
+    "heightCm": 194,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/big_1745536141ERQ0t.png"
+  },
+  {
+    "firstName": "Stefano",
+    "lastName": "Dell'Osso",
+    "birthDate": "2003-01-20",
+    "gender": "male",
+    "heightCm": 203,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/1604406168a1GCs.png"
+  },
+  {
+    "firstName": "Davide",
+    "lastName": "Gatti",
+    "birthDate": "2003-01-01",
+    "gender": "male",
+    "heightCm": 175,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/17145877899Hfbb.png"
+  },
+  {
+    "firstName": "Lorenzo",
+    "lastName": "Thei",
+    "birthDate": "2002-12-30",
+    "gender": "male",
+    "heightCm": 182,
+    "country": "Italy",
+    "handedness": "Right",
+    "profileImageUrl": "https://volleybox.net/media/upload/players/17514729903yodZ.png"
+  }
+]

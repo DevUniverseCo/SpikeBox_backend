@@ -4,8 +4,8 @@ export type CreateSeason = {
   clubId: string;
   name: string; // es: "2025/2026"
   seasonKey: string; // e.g., "2022-2023"
-  startDate: Date;
-  endDate: Date;
+  startDate?: Date;
+  endDate?: Date;
 };
 
 export type Season = Base & CreateSeason;

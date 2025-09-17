@@ -1,8 +1,8 @@
 export const PositionEnum = {
   LIBERO: "libero",
-  MIDDLE: "middle",
+  MIDDLE: "middle-blocker",
   OPPOSITE: "opposite",
-  OUTSIDE: "outside",
+  OUTSIDE: "outside hitter",
   SETTER: "setter",
 } as const;
 

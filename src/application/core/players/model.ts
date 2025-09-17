@@ -1,5 +1,6 @@
 import { CountryEnum } from "../../common/enums/countryEnum";
 import { GenderEnum } from "../../common/enums/genderEnum";
+import { HandednessEnum } from "../../common/enums/handednessEnum";
 import { PlatformType } from "../../common/types/platformType";
 import { Base } from "../base/model";
 import { History } from "../histories/model";
@@ -13,6 +14,7 @@ export type CreatePlayer = {
   weightKg?: number;
   country?: CountryEnum;
   biography?: string;
+  handedness?: HandednessEnum;
   profileImageUrl?: string;
   platform?: PlatformType;
 };

@@ -18,9 +18,11 @@ export const CreateTeam = Type.Object({
   league: Type.Enum(LeagueEnum),
 });
 
+export const SeedTeam = Type.Array(CreateTeam);
 export const UpdateTeam = Type.Partial(CreateTeam);
 
 export const Team = Type.Intersect([BaseSchema.Bodies.Base, CreateTeam]);
+export const TeamArray = Type.Array(Team);
 
 export const TeamResponseSingle = DataResponseSingleType(Team);
 export const TeamResponseArray = DataResponseArrayType(Team);

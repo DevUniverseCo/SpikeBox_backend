@@ -44,6 +44,15 @@ const registerCrudRoutes: FastifyPluginAsyncTypebox = async (
       );
     }
 
+    // POST /entity/seed
+    if (config.schemas.seed) {
+      app.post(
+        `/${entityName}/seed`,
+        { schema: config.schemas.seed },
+        async (request) => service.createMany(request.body as any)
+      );
+    }
+
     // PATCH /entity/:id
     if (config.schemas.patch) {
       app.patch(

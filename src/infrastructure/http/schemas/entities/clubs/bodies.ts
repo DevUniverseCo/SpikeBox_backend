@@ -28,8 +28,10 @@ export const CreateClub = Type.Object({
     })
   ),
 });
+export const SeedClub = Type.Array(CreateClub);
 
 export const UpdateClub = Type.Partial(CreateClub);
+export const ClubArray = Type.Array(CreateClub);
 
 export const Club = Type.Intersect([BaseSchema.Bodies.Base, CreateClub]);
 
