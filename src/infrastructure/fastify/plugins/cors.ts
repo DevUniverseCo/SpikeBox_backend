@@ -2,14 +2,18 @@ import cors from "@fastify/cors";
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
 
-const corsPlugin = async (fastify: FastifyInstance) => {
-  await fastify.register(cors, {
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  });
-};
+export const register = fp(async (fastify: FastifyInstance) => {
+  try {
+    await fastify.register(cors, {
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    });
 
-// Avvolgi con fastify-plugin e esporta come default
-export default fp(corsPlugin);
-
-// TO DO SISTEMARE L'EXPORT
+    fastify.after(() => {
+      fastify.log.info("PLUGIN CORS plugin loaded successfully!");
+    });
+  } catch (err) {
+    fastify.log.error({ err }, "Failed to load CORS plugin");
+    throw err;
+  }
+});

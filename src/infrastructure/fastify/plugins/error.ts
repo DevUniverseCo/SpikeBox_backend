@@ -3,7 +3,10 @@ import fp from "fastify-plugin";
 import { ErrorResponseType } from "../../../application/common/types/responseType";
 import { logger } from "../../logger/logger";
 
-// l'ho fatto diventare un plugin per poterlo usare con autoload
+/**
+ * Custom error handler plugin per Fastify
+ * Intercetta tutti gli errori e invia una risposta JSON strutturata.
+ */
 export const register = fp(async (fastify: FastifyInstance) => {
   fastify.setErrorHandler(
     (error: unknown, _request: FastifyRequest, reply: FastifyReply) => {

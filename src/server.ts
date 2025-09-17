@@ -2,7 +2,16 @@ import autoLoad from "@fastify/autoload";
 import Fastify from "fastify";
 import path from "path";
 
+import {
+  PluginCors,
+  PluginEnv,
+  PluginError,
+  PluginHelmet,
+  PluginSwaggerCore,
+  PluginSwaggerUi,
+} from "./infrastructure/fastify";
 import { logger } from "./infrastructure/logger/logger";
+import { MongoDbClient } from "./infrastructure/persistence/mongo/mongoDbclient";
 
 const buildApp = async () => {
   const fastify = Fastify({
@@ -16,16 +25,49 @@ const buildApp = async () => {
     },
   });
 
-  await fastify.register(autoLoad, {
-    dir: path.join(__dirname, "infrastructure/fastify/plugins"),
-  });
+  // Registrazione dei plugin
+  await PluginEnv.register(fastify);
+  PluginCors.register(fastify);
+  PluginError.register(fastify);
+  PluginHelmet.register(fastify);
+  PluginSwaggerCore.register(fastify);
+  PluginSwaggerUi.register(fastify);
 
+  // Caricamento automatico delle rotte
   await fastify.register(autoLoad, {
     dir: path.join(__dirname, "infrastructure/http/routes"),
     options: { prefix: "/api" },
   });
 
   fastify.get("/ping", async () => ({ pong: "it works!" }));
+
+  // --- MongoDB ---
+  const mongoClient = new MongoDbClient({
+    username: fastify.config.MONGODB_USERNAME,
+    password: fastify.config.MONGODB_PASSWORD,
+    dbName: fastify.config.MONGODB_DATABASE,
+    cluster: fastify.config.MONGODB_CLUSTER,
+  });
+  // Decora Fastify con il client per poterlo usare nelle route
+  fastify.decorate("mongo", mongoClient);
+
+  // --- Start e stop MongoDB con lifecycle hooks ---
+  fastify.addHook("onClose", async () => {
+    try {
+      await mongoClient.disconnect();
+    } catch (err) {
+      logger.error("❌ Error disconnecting MongoDB:", err);
+    }
+  });
+
+  fastify.addHook("onReady", async () => {
+    try {
+      await mongoClient.connect();
+    } catch (err) {
+      logger.error("❌ Failed to connect to MongoDB:", err);
+      process.exit(1); // blocca se DB non disponibile
+    }
+  });
 
   // Setup graceful shutdown con timeout
   const setupGracefulShutdown = () => {
