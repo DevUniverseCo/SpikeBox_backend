@@ -15,6 +15,7 @@ export class SeasonDao
     const seasons = await this.model.find().populate({
       path: "teams",
       match: { club: clubId }, // filtra solo i team di quel club
+      select: "name level gender leagues", // seleziona solo i campi name e coach
     });
 
     return seasons.map((season) => season.toObject());
