@@ -1,6 +1,6 @@
 export const HandednessEnum = {
-  LEFT: "Left",
-  RIGHT: "Right",
+  LEFT: "left",
+  RIGHT: "right",
 } as const;
 
 export type HandednessEnum =

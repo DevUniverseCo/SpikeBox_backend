@@ -25,6 +25,21 @@
       "restart": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug seed",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "ts-node",
+        "${workspaceFolder}/src/infrastructure/persistence/mongo/seed/run.ts"
+      ],
+      "env": {
+        "NODE_ENV": "dev"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

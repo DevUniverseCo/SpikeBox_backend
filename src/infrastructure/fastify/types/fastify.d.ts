@@ -1,4 +1,5 @@
 import "fastify";
+import { Mongoose } from "mongoose";
 
 declare module "fastify" {
   interface FastifyInstance {
@@ -11,17 +12,11 @@ declare module "fastify" {
       MONGODB_CLUSTER: string;
     };
     database?: {
-      mongo: {
-        client: MongoClient;
-        db: Db;
-      };
+      mongoose: Mongoose;
     };
     services: {
-      playerService: PlayerService;
-      historyService: HistoryService;
-      teamService: BaseService<Team, CreateTeam>;
-      clubService: BaseService<Club, CreateClub>;
-      seasonService: BaseService<Season, CreateSeason>;
+      clubService: BaseService<ClubDocument, CreateClub>;
+      seasonService: SeasonService;
     };
   }
 }

@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "NODE_ENV=dev nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/server.ts",
-    "prod": "NODE_ENV=prod node dist/server.js"
+    "prod": "NODE_ENV=prod node dist/server.js",
+    "seed": "ts-node src/infrastructure/persistence/mongo/seed/run.ts"
   },
   "keywords": [],
   "author": "Developer Universe",
@@ -25,7 +26,8 @@
     "fastify": "^5.5.0",
     "fastify-plugin": "^5.0.1",
     "fluent-json-schema": "^6.0.0",
-    "mongodb": "^6.19.0"
+    "mongodb": "^6.19.0",
+    "mongoose": "^8.18.1"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",

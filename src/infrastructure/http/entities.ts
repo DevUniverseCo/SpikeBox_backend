@@ -1,16 +1,8 @@
 import { FastifyInstance } from "fastify";
-import { Club } from "../../application/core/clubs/model";
-import { Player } from "../../application/core/players/model";
-import { Season } from "../../application/core/seasons/model";
-import { Team } from "../../application/core/teams/model";
-import {
-  ClubSchema,
-  CommonSchema,
-  HistorySchema,
-  PlayerSchema,
-  SeasonSchema,
-  TeamSchema,
-} from "./schemas";
+
+import { Club } from "../../application/entities/club";
+import { Season } from "../../application/entities/season";
+import { ClubSchema, CommonSchema, SeasonSchema } from "./schemas";
 
 function createCrudSchemas<T>({
   typeSingle,
@@ -62,39 +54,39 @@ const ErrorResponses = {
 };
 
 export const entities = {
-  players: {
-    type: {} as Player,
-    service: (app: FastifyInstance) => app.services.playerService,
-    schemas: {
-      ...createCrudSchemas({
-        typeSingle: PlayerSchema.Bodies.PlayerResponseSingle,
-        typeArray: PlayerSchema.Bodies.PlayerResponseArray,
-        createBody: PlayerSchema.Bodies.CreatePlayer,
-        updateBody: PlayerSchema.Bodies.UpdatePlayer,
-        createManyBody: PlayerSchema.Bodies.SeedPlayer,
-      }),
-      getWithExperiences: {
-        params: CommonSchema.Params.Id,
-        response: {
-          200: PlayerSchema.Bodies.PlayerWithExperiences,
-          ...ErrorResponses,
-        },
-      },
-    },
-  },
-  teams: {
-    type: {} as Team,
-    service: (app: FastifyInstance) => app.services.teamService,
-    schemas: {
-      ...createCrudSchemas({
-        typeSingle: TeamSchema.Bodies.TeamResponseSingle,
-        typeArray: TeamSchema.Bodies.TeamResponseArray,
-        createBody: TeamSchema.Bodies.CreateTeam,
-        updateBody: TeamSchema.Bodies.UpdateTeam,
-        createManyBody: TeamSchema.Bodies.SeedTeam,
-      }),
-    },
-  },
+  // players: {
+  //   type: {} as Player,
+  //   service: (app: FastifyInstance) => app.services.playerService,
+  //   schemas: {
+  //     ...createCrudSchemas({
+  //       typeSingle: PlayerSchema.Bodies.PlayerResponseSingle,
+  //       typeArray: PlayerSchema.Bodies.PlayerResponseArray,
+  //       createBody: PlayerSchema.Bodies.CreatePlayer,
+  //       updateBody: PlayerSchema.Bodies.UpdatePlayer,
+  //       createManyBody: PlayerSchema.Bodies.SeedPlayer,
+  //     }),
+  //     getWithExperiences: {
+  //       params: CommonSchema.Params.Id,
+  //       response: {
+  //         200: PlayerSchema.Bodies.PlayerWithExperiences,
+  //         ...ErrorResponses,
+  //       },
+  //     },
+  //   },
+  // },
+  // teams: {
+  //   type: {} as Team,
+  //   service: (app: FastifyInstance) => app.services.teamService,
+  //   schemas: {
+  //     ...createCrudSchemas({
+  //       typeSingle: TeamSchema.Bodies.TeamResponseSingle,
+  //       typeArray: TeamSchema.Bodies.TeamResponseArray,
+  //       createBody: TeamSchema.Bodies.CreateTeam,
+  //       updateBody: TeamSchema.Bodies.UpdateTeam,
+  //       createManyBody: TeamSchema.Bodies.SeedTeam,
+  //     }),
+  //   },
+  // },
   clubs: {
     type: {} as Club,
     service: (app: FastifyInstance) => app.services.clubService,
@@ -116,25 +108,32 @@ export const entities = {
       updateBody: SeasonSchema.Bodies.UpdateSeason,
       createManyBody: SeasonSchema.Bodies.SeedSeason,
     }),
-  },
-  histories: {
-    type: {} as History,
-    service: (app: FastifyInstance) => app.services.historyService,
-    schemas: {
-      ...createCrudSchemas({
-        typeSingle: HistorySchema.Bodies.HistoryResponseSingle,
-        typeArray: HistorySchema.Bodies.HistoryResponseArray,
-        createBody: HistorySchema.Bodies.CreateHistory,
-        updateBody: HistorySchema.Bodies.UpdateHistory,
-        createManyBody: HistorySchema.Bodies.SeedHistory,
-      }),
-      getByPlayerId: {
-        params: CommonSchema.Params.Id,
-        response: {
-          200: HistorySchema.Bodies.HistoryResponseArray,
-          ...ErrorResponses,
-        },
+    getByClubIdWithTeams: {
+      params: CommonSchema.Params.Id,
+      response: {
+        200: SeasonSchema.Bodies.SeasonWithTeamsDto,
+        ...ErrorResponses,
       },
     },
   },
+  // histories: {
+  //   type: {} as History,
+  //   service: (app: FastifyInstance) => app.services.historyService,
+  //   schemas: {
+  //     ...createCrudSchemas({
+  //       typeSingle: HistorySchema.Bodies.HistoryResponseSingle,
+  //       typeArray: HistorySchema.Bodies.HistoryResponseArray,
+  //       createBody: HistorySchema.Bodies.CreateHistory,
+  //       updateBody: HistorySchema.Bodies.UpdateHistory,
+  //       createManyBody: HistorySchema.Bodies.SeedHistory,
+  //     }),
+  //     getByPlayerId: {
+  //       params: CommonSchema.Params.Id,
+  //       response: {
+  //         200: HistorySchema.Bodies.HistoryResponseArray,
+  //         ...ErrorResponses,
+  //       },
+  //     },
+  //   },
+  // },
 };

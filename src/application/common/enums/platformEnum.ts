@@ -4,6 +4,7 @@ export const PlatformEnum = {
   twitter: "twitter",
   youtube: "youtube",
   tiktok: "tiktok",
+  other: "other",
 } as const;
 
 export type PlatformEnum = (typeof PlatformEnum)[keyof typeof PlatformEnum];

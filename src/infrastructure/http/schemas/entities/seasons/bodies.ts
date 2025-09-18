@@ -19,5 +19,7 @@ export const SeedSeason = Type.Array(CreateSeason);
 export const Season = Type.Intersect([BaseSchema.Bodies.Base, CreateSeason]);
 export const SeasonArray = Type.Array(Season);
 
+export const SeasonWithTeamsDto = Type.Intersect([Season]);
+
 export const SeasonResponseSingle = DataResponseSingleType(Season);
 export const SeasonResponseArray = DataResponseArrayType(Season);

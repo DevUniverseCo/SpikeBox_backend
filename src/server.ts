@@ -12,7 +12,7 @@ import {
   PluginSwaggerUi,
 } from "./infrastructure/fastify";
 import { logger } from "./infrastructure/logger/logger";
-import { MongoDbClient } from "./infrastructure/persistence/mongo/mongoDbclient";
+import { MongooseClient } from "./infrastructure/persistence/mongo/mongooseClient";
 
 const buildApp = async () => {
   const fastify = Fastify({
@@ -33,27 +33,20 @@ const buildApp = async () => {
   await PluginSwaggerCore.register(fastify);
   await PluginSwaggerUi.register(fastify);
 
-  // --- MongoDB ---
-  const mongoClient = new MongoDbClient({
+  // --- MongoDB via Mongoose ---
+  const mongooseClient = new MongooseClient({
     username: fastify.config.MONGODB_USERNAME,
     password: fastify.config.MONGODB_PASSWORD,
-    dbName: fastify.config.MONGODB_DATABASE,
     cluster: fastify.config.MONGODB_CLUSTER,
+    dbName: fastify.config.MONGODB_DATABASE,
   });
 
-  // --- Start e stop MongoDB con lifecycle hooks ---
-  fastify.addHook("onClose", async () => {
-    try {
-      await mongoClient.disconnect();
-    } catch (err) {
-      logger.error("❌ Error disconnecting MongoDB:", err);
-    }
-  });
-
-  await mongoClient.connect();
+  await mongooseClient.connect();
+  // Decorate Fastify con Mongoose
   fastify.decorate("database", {
-    mongo: { client: mongoClient, db: mongoClient.db },
+    mongoose: mongooseClient.getInstance(),
   });
+
   CstPluginErrors.register(fastify);
   CstPluginServices.register(fastify);
 
@@ -62,23 +55,6 @@ const buildApp = async () => {
     dir: path.join(__dirname, "infrastructure/http/routes"),
     options: { prefix: "/api" },
   });
-
-  // fastify.addHook("onReady", async () => {
-  //   try {
-  //     await mongoClient.connect();
-  //     CstPluginErrors.register(fastify);
-  //     CstPluginServices.register(fastify);
-
-  //     // Caricamento automatico delle rotte
-  //     await fastify.register(autoLoad, {
-  //       dir: path.join(__dirname, "infrastructure/http/routes"),
-  //       options: { prefix: "/api" },
-  //     });
-  //   } catch (err) {
-  //     logger.error("❌ Failed to connect to MongoDB:", err);
-  //     process.exit(1); // blocca se DB non disponibile
-  //   }
-  // });
 
   // Setup graceful shutdown con timeout
   const setupGracefulShutdown = () => {
@@ -94,6 +70,7 @@ const buildApp = async () => {
 
         try {
           await fastify.close();
+          await mongooseClient.disconnect();
           clearTimeout(shutdownTimeout);
           logger.info("✅ Fastify server stopped.");
           process.exit(0);
