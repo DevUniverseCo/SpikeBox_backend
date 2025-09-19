@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { Post } from "../../../../application/entities/post";
+import { Post } from "../../../../application/domain/post";
 
 export type PostDocument = Post & Document;
 
@@ -14,7 +14,7 @@ const PostSchema = new Schema<PostDocument>(
     locked: { type: Boolean, default: false },
     lockedAt: { type: Date },
   },
-  { timestamps: true } // createdAt e updatedAt automatici
+  { timestamps: true }
 );
 
 export const PostModel = model<PostDocument>("Post", PostSchema);

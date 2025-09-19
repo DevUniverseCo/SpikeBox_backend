@@ -1,6 +1,6 @@
 import { CountryEnum } from "../../../../../application/common/enums/countryEnum";
 import { OfficeEnum } from "../../../../../application/common/enums/officeEnum";
-import { Staff } from "../../../../../application/entities/staff";
+import { Staff } from "../../../../../application/domain/staff";
 
 export const StaffSeed = () => {
   const staff: Staff = {

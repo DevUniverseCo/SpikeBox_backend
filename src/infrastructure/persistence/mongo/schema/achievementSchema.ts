@@ -1,20 +1,21 @@
 import { model, Schema, Types } from "mongoose";
-import { Achievement } from "../../../../application/entities/achievement";
+import { EntityEnum } from "../../../../application/common/enums/entityEnum";
+import { Achievement } from "../../../../application/domain/achievement";
 
 export type AchievementDocument = Achievement & Document;
 
 const AchievementSchema = new Schema<AchievementDocument>(
   {
-    title: { type: String, required: true },
+    name: { type: String, required: true },
     description: { type: String },
     date: { type: Date, required: true },
-    season: { type: Types.ObjectId, ref: "Season" },
     player: { type: Types.ObjectId, ref: "Player" },
     team: { type: Types.ObjectId, ref: "Team" },
+    entity: { type: String, enum: Object.values(EntityEnum), required: true },
     locked: { type: Boolean, default: false },
     lockedAt: { type: Date },
   },
-  { timestamps: true } // createdAt e updatedAt automatici
+  { timestamps: true }
 );
 
 export const AchievementModel = model<AchievementDocument>(

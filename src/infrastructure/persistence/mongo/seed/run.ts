@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import "dotenv/config"; // per leggere le variabili da .env
+import "dotenv/config";
 import { logger } from "../../../logger/logger";
 import { MongooseClient } from "../mongooseClient";
 import { seed } from "./seed";

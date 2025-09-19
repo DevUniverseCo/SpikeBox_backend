@@ -1,6 +1,6 @@
 import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 import { FastifyInstance } from "fastify";
-import { entities } from "../../entities";
+import { entities } from "../../../entities";
 
 const registerSeasonRoutes: FastifyPluginAsyncTypebox = async (
   app: FastifyInstance
@@ -10,7 +10,7 @@ const registerSeasonRoutes: FastifyPluginAsyncTypebox = async (
   // GET /entity
   if (entities.seasons.schemas.getAll) {
     app.get(
-      `/seasons/all/club/:id`,
+      `/all/club/:id`,
       { schema: entities.seasons.schemas.getAll },
       async (request) => {
         const { id } = request.params as { id: string };

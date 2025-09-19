@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
-import { CreateClub } from "../../../application/entities/club";
-import { CreateTeam } from "../../../application/entities/team";
+import { CreateClub } from "../../../application/domain/club";
+import { CreateTeam } from "../../../application/domain/team";
 import { BaseService } from "../../../application/use-cases/baseService";
 import { SeasonService } from "../../../application/use-cases/seasonService";
 import { BaseDao } from "../../persistence/mongo/dao/baseDao";

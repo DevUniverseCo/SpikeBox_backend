@@ -1,21 +1,20 @@
-import { Types } from "mongoose";
 import { CountryEnum } from "../common/enums/countryEnum";
 import { ContactType } from "../common/types/contactType";
+import { LocationType } from "../common/types/locationType";
 import { PlatformType } from "../common/types/platformType";
 import { Base } from "./base";
 
 export type CreateClub = {
   name: string;
   description?: string;
-  foundationYear?: number; // es. 1908
+  foundationYear?: number;
+  logoUrl?: string;
   town?: string;
   country?: CountryEnum;
-  logoUrl?: string;
   contact?: ContactType;
+  location?: LocationType;
   platform?: PlatformType;
-  teams?: Types.ObjectId[]; // ref Team
 };
 
 export type Club = Base & CreateClub;
-
 export type UpdateClub = Partial<CreateClub>;

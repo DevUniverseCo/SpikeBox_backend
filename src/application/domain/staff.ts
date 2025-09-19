@@ -7,14 +7,11 @@ export type CreateStaff = {
   firstName: string;
   lastName: string;
   birthDate?: Date;
-  office: OfficeEnum[]; // es. "Allenatore", "Preparatore Atletico", etc.
+  office: OfficeEnum[];
   country?: CountryEnum;
   biography?: string;
-  profileImageUrl?: string;
+  imageUrl?: string;
 };
 
-// PLAYER ENTITY
 export type Staff = Base & CreateStaff;
-
-// PLAYER UPDATE DTO
 export type UpdateStaff = Partial<CreateStaff>;

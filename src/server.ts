@@ -10,7 +10,7 @@ import {
   PluginHelmet,
   PluginSwaggerCore,
   PluginSwaggerUi,
-} from "./infrastructure/fastify";
+} from "./infrastructure/http/fastify";
 import { logger } from "./infrastructure/logger/logger";
 import { MongooseClient } from "./infrastructure/persistence/mongo/mongooseClient";
 

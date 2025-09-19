@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import { PositionEnum } from "../../../../../application/common/enums/positionEum";
-import { History } from "../../../../../application/entities/history";
+import { History } from "../../../../../application/domain/history";
 
 export const HistorySeed = (
   teamId: Types.ObjectId,

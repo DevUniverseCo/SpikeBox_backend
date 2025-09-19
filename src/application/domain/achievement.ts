@@ -1,15 +1,16 @@
 import { Types } from "mongoose";
+import { EntityEnum } from "../common/enums/entityEnum";
 import { Base } from "./base";
 
 export type CreateAchievement = {
-  title: string;
+  name: string;
   description?: string;
   date: Date;
-  season?: Types.ObjectId; // ref Season
-  player?: Types.ObjectId; // ref Player
-  team?: Types.ObjectId; // ref Team
+  entity: EntityEnum;
+  season: Types.ObjectId;
+  player?: Types.ObjectId;
+  team?: Types.ObjectId;
 };
 
 export type Achievement = Base & CreateAchievement;
-
 export type UpdateAchievement = Partial<CreateAchievement>;

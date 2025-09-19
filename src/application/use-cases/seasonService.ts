@@ -1,4 +1,4 @@
-import { CreateSeason, Season } from "../entities/season";
+import { CreateSeason, Season } from "../domain/season";
 import { ISeasonRepository } from "../ports/seasonRepository";
 import { BaseService } from "./baseService";
 

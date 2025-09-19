@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 import { PositionEnum } from "../../../../application/common/enums/positionEum";
-import { History } from "../../../../application/entities/history";
+import { History } from "../../../../application/domain/history";
 
 export type HistoryDocument = History & Document;
 
@@ -16,10 +16,10 @@ const HistorySchema = new Schema<HistoryDocument>(
     },
     jerseyNumber: { type: Number },
     isCaptain: { type: Boolean, default: false },
-    locked: { type: Boolean, default: false }, // dal Base
+    locked: { type: Boolean, default: false },
     lockedAt: { type: Date },
   },
-  { timestamps: true } // createdAt e updatedAt automatici
+  { timestamps: true }
 );
 
 export const HistoryModel = model<HistoryDocument>("History", HistorySchema);

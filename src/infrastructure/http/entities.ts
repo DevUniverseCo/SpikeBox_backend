@@ -1,103 +1,58 @@
 import { FastifyInstance } from "fastify";
+import { Season } from "../../application/domain/season";
+import { CommonSchema, SeasonSchema } from "./schema";
 
-import { Club } from "../../application/entities/club";
-import { Season } from "../../application/entities/season";
-import { ClubSchema, CommonSchema, SeasonSchema } from "./schemas";
+// ----------------- Costanti comuni -----------------
+const ErrorResponses = {
+  404: CommonSchema.Errors.ApiErrorResponse,
+  500: CommonSchema.Errors.ApiErrorResponse,
+};
 
-function createCrudSchemas<T>({
+// ----------------- Utility per CRUD -----------------
+function createCrudSchemas({
   typeSingle,
   typeArray,
   createBody,
   updateBody,
   createManyBody,
 }: {
-  typeSingle: any;
-  typeArray: any;
-  createBody: any;
-  updateBody: any;
-  createManyBody: any;
+  typeSingle: object;
+  typeArray: object;
+  createBody: object;
+  updateBody: object;
+  createManyBody: object;
 }) {
-  const baseErrorResponses = {
-    404: CommonSchema.Errors.ApiErrorResponse,
-    500: CommonSchema.Errors.ApiErrorResponse,
-  };
-
   return {
     get: {
       params: CommonSchema.Params.Id,
-      response: { 200: typeSingle, ...baseErrorResponses },
+      response: { 200: typeSingle, ...ErrorResponses },
     },
-    getAll: { response: { 200: typeArray, ...baseErrorResponses } },
+    getAll: {
+      response: { 200: typeArray, ...ErrorResponses },
+    },
     post: {
       body: createBody,
-      response: { 201: createBody, ...baseErrorResponses },
+      response: { 201: createBody, ...ErrorResponses },
     },
     patch: {
       params: CommonSchema.Params.Id,
       body: updateBody,
-      response: { 200: updateBody, ...baseErrorResponses },
+      response: { 200: updateBody, ...ErrorResponses },
     },
     delete: {
       params: CommonSchema.Params.Id,
-      response: { 204: { type: "boolean" }, ...baseErrorResponses },
+      response: { 204: { type: "boolean" }, ...ErrorResponses },
     },
     seed: {
       body: createManyBody,
-      response: { 201: typeArray, ...baseErrorResponses },
+      response: { 201: typeArray, ...ErrorResponses },
     },
   };
 }
 
-const ErrorResponses = {
-  404: CommonSchema.Errors.ApiErrorResponse,
-  500: CommonSchema.Errors.ApiErrorResponse,
-};
-
+// ----------------- Entities -----------------
 export const entities = {
-  // players: {
-  //   type: {} as Player,
-  //   service: (app: FastifyInstance) => app.services.playerService,
-  //   schemas: {
-  //     ...createCrudSchemas({
-  //       typeSingle: PlayerSchema.Bodies.PlayerResponseSingle,
-  //       typeArray: PlayerSchema.Bodies.PlayerResponseArray,
-  //       createBody: PlayerSchema.Bodies.CreatePlayer,
-  //       updateBody: PlayerSchema.Bodies.UpdatePlayer,
-  //       createManyBody: PlayerSchema.Bodies.SeedPlayer,
-  //     }),
-  //     getWithExperiences: {
-  //       params: CommonSchema.Params.Id,
-  //       response: {
-  //         200: PlayerSchema.Bodies.PlayerWithExperiences,
-  //         ...ErrorResponses,
-  //       },
-  //     },
-  //   },
-  // },
-  // teams: {
-  //   type: {} as Team,
-  //   service: (app: FastifyInstance) => app.services.teamService,
-  //   schemas: {
-  //     ...createCrudSchemas({
-  //       typeSingle: TeamSchema.Bodies.TeamResponseSingle,
-  //       typeArray: TeamSchema.Bodies.TeamResponseArray,
-  //       createBody: TeamSchema.Bodies.CreateTeam,
-  //       updateBody: TeamSchema.Bodies.UpdateTeam,
-  //       createManyBody: TeamSchema.Bodies.SeedTeam,
-  //     }),
-  //   },
-  // },
-  clubs: {
-    type: {} as Club,
-    service: (app: FastifyInstance) => app.services.clubService,
-    schemas: createCrudSchemas({
-      typeSingle: ClubSchema.Bodies.ClubResponseSingle,
-      typeArray: ClubSchema.Bodies.ClubResponseArray,
-      createBody: ClubSchema.Bodies.CreateClub,
-      updateBody: ClubSchema.Bodies.UpdateClub,
-      createManyBody: ClubSchema.Bodies.SeedClub,
-    }),
-  },
+  // Esempio: seasons
   seasons: {
     type: {} as Season,
     service: (app: FastifyInstance) => app.services.seasonService,
@@ -108,32 +63,38 @@ export const entities = {
       updateBody: SeasonSchema.Bodies.UpdateSeason,
       createManyBody: SeasonSchema.Bodies.SeedSeason,
     }),
-    getByClubIdWithTeams: {
-      params: CommonSchema.Params.Id,
-      response: {
-        200: SeasonSchema.Bodies.SeasonWithTeamsDto,
-        ...ErrorResponses,
+    custom: {
+      getByClubIdWithTeams: {
+        params: CommonSchema.Params.Id,
+        response: {
+          200: SeasonSchema.Bodies.SeasonWithTeamsDto,
+          ...ErrorResponses,
+        },
       },
     },
   },
-  // histories: {
-  //   type: {} as History,
-  //   service: (app: FastifyInstance) => app.services.historyService,
-  //   schemas: {
-  //     ...createCrudSchemas({
-  //       typeSingle: HistorySchema.Bodies.HistoryResponseSingle,
-  //       typeArray: HistorySchema.Bodies.HistoryResponseArray,
-  //       createBody: HistorySchema.Bodies.CreateHistory,
-  //       updateBody: HistorySchema.Bodies.UpdateHistory,
-  //       createManyBody: HistorySchema.Bodies.SeedHistory,
-  //     }),
-  //     getByPlayerId: {
-  //       params: CommonSchema.Params.Id,
-  //       response: {
-  //         200: HistorySchema.Bodies.HistoryResponseArray,
-  //         ...ErrorResponses,
-  //       },
-  //     },
-  //   },
-  // },
+
+  // altri entities commentati per ora:
+  /*
+  players: {
+    type: {} as Player,
+    service: (app: FastifyInstance) => app.services.playerService,
+    schemas: {
+      ...createCrudSchemas({
+        typeSingle: PlayerSchema.Bodies.PlayerResponseSingle,
+        typeArray: PlayerSchema.Bodies.PlayerResponseArray,
+        createBody: PlayerSchema.Bodies.CreatePlayer,
+        updateBody: PlayerSchema.Bodies.UpdatePlayer,
+        createManyBody: PlayerSchema.Bodies.SeedPlayer,
+      }),
+      getWithExperiences: {
+        params: CommonSchema.Params.Id,
+        response: {
+          200: PlayerSchema.Bodies.PlayerWithExperiences,
+          ...ErrorResponses,
+        },
+      },
+    },
+  },
+  */
 };

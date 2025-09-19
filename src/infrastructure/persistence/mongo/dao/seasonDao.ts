@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { CreateSeason, Season } from "../../../../application/entities/season";
+import { CreateSeason, Season } from "../../../../application/domain/season";
 import { ISeasonRepository } from "../../../../application/ports/seasonRepository";
 import { SeasonDocument } from "../schema/seasonSchema";
 import { BaseDao } from "./baseDao";

@@ -1,12 +1,8 @@
-import { Types } from "mongoose";
-import { Club } from "../../../../application/entities/club";
-import { History } from "../../../../application/entities/history";
-import { Player } from "../../../../application/entities/player";
-import { Post } from "../../../../application/entities/post";
-import { Season } from "../../../../application/entities/season";
-import { Staff } from "../../../../application/entities/staff";
-import { Team } from "../../../../application/entities/team";
-import { User } from "../../../../application/entities/user";
+import { Achievement } from "../../../../application/domain/achievement";
+import { History } from "../../../../application/domain/history";
+import { Post } from "../../../../application/domain/post";
+import { Staff } from "../../../../application/domain/staff";
+import { User } from "../../../../application/domain/user";
 import { AchievementModel } from "../schema/achievementSchema";
 import { ClubModel } from "../schema/clubSchema";
 import { HistoryModel } from "../schema/historySchema";
@@ -16,6 +12,7 @@ import { SeasonModel } from "../schema/seasonSchema";
 import { StaffModel } from "../schema/staffSchema";
 import { TeamModel } from "../schema/teamSchema";
 import { UserModel } from "../schema/userSchema";
+import { AchievementSeed } from "./data/achievement";
 import { ClubSeed } from "./data/club";
 import { HistorySeed } from "./data/history";
 import { PlayerSeed } from "./data/player";
@@ -26,87 +23,59 @@ import { TeamSeed } from "./data/team";
 import { UserSeed } from "./data/user";
 
 export async function seed() {
-  await ClubModel.deleteMany();
-  await SeasonModel.deleteMany();
-  await StaffModel.deleteMany();
-  await PlayerModel.deleteMany();
-  await TeamModel.deleteMany();
-  await AchievementModel.deleteMany();
-  await HistoryModel.deleteMany();
-  await UserModel.deleteMany();
-  await PostModel.deleteMany();
+  await Promise.all([
+    ClubModel.deleteMany(),
+    TeamModel.deleteMany(),
+    UserModel.deleteMany(),
+    PostModel.deleteMany(),
+    StaffModel.deleteMany(),
+    PlayerModel.deleteMany(),
+    SeasonModel.deleteMany(),
+    HistoryModel.deleteMany(),
+    AchievementModel.deleteMany(),
+  ]);
 
-  // seed CLUBS-TABLE
-  const club: Club = ClubSeed();
-  const newClubWithId: Types.ObjectId = (await ClubModel.insertOne(club))._id;
+  // CREA CLUB
+  const club = ClubSeed();
+  const newClub = await ClubModel.create(club);
 
-  // seed SEASONS-TABLE
-  const season: Season = SeasonSeed();
-  const newSeasonWithId: Types.ObjectId = (await SeasonModel.insertOne(season))
-    ._id;
+  // CREA STAGIONE
+  const season = SeasonSeed();
+  const newSeason = await SeasonModel.create(season);
 
-  // seed TEAMS-TABLE
-  const team: Team = TeamSeed(newClubWithId, newSeasonWithId, [], [], []);
-  const newTeamWithId: Types.ObjectId = (await TeamModel.insertOne(team))._id;
-
-  // seed PLAYER-TABLE
-  const player: Player = PlayerSeed();
-  const newPlayerWithId: Types.ObjectId = (await PlayerModel.insertOne(player))
-    ._id;
-
-  // seed HISTORY-TABLE
-  const history: History = HistorySeed(
-    newTeamWithId,
-    newPlayerWithId,
-    newSeasonWithId
-  );
-  const newHistoryWithId: Types.ObjectId = (
-    await HistoryModel.insertOne(history)
-  )._id;
-
-  // seed STAFF-TABLE
+  // CREA STAFF
   const staff: Staff = StaffSeed();
-  const newStaffWithId: Types.ObjectId = (await StaffModel.insertOne(staff))
-    ._id;
+  const newStaff = await StaffModel.create(staff);
 
-  // seed USER-TABLE
+  // CREA TEAM
+  const team = TeamSeed(newClub._id, newSeason._id, [newStaff._id]);
+  const newTeam = await TeamModel.create(team);
+
+  // CREA PLAYER
+  const player = PlayerSeed();
+  const newPlayer = await PlayerModel.create(player);
+
+  // CREA ACHIEVEMENT
+  const achievement: Achievement = AchievementSeed(
+    newSeason._id,
+    undefined,
+    newTeam._id
+  );
+  await AchievementModel.create(achievement);
+
+  // CREATE HISTORY
+  const history: History = HistorySeed(
+    newTeam._id,
+    newPlayer._id,
+    newSeason._id
+  );
+  await HistoryModel.create(history);
+
+  // CREATE USER
   const user: User = UserSeed();
-  const newUserWithId: Types.ObjectId = (await UserModel.insertOne(user))._id;
+  const newUser = await UserModel.create(user);
 
-  // seed POST-TABLE
-  const post: Post = PostSeed(newUserWithId);
-  const newPostWithId: Types.ObjectId = (await PostModel.insertOne(post))._id;
-
-  // update club
-  await ClubModel.findByIdAndUpdate(
-    newClubWithId,
-    { $push: { teams: newTeamWithId } },
-    { new: true } // opzionale, restituisce il documento aggiornato
-  );
-
-  // update season
-  await SeasonModel.findByIdAndUpdate(
-    newSeasonWithId,
-    { $push: { teams: newTeamWithId } },
-    { new: true } // opzionale, restituisce il documento aggiornato
-  );
-
-  // update player
-  await PlayerModel.findByIdAndUpdate(
-    newPlayerWithId,
-    { $push: { histories: newHistoryWithId } },
-    { new: true } // opzionale, restituisce il documento aggiornato
-  );
-
-  // update team
-  await TeamModel.findByIdAndUpdate(
-    newTeamWithId,
-    { $push: { staff: newStaffWithId } },
-    { new: true } // opzionale, restituisce il documento aggiornato
-  );
-  await TeamModel.findByIdAndUpdate(
-    newTeamWithId,
-    { $push: { roster: newPlayerWithId } },
-    { new: true } // opzionale, restituisce il documento aggiornato
-  );
+  // CREATE POST
+  const post: Post = PostSeed(newUser._id);
+  await PostModel.create(post);
 }

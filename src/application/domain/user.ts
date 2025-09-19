@@ -6,8 +6,8 @@ export type CreateUser = {
   email: string;
   password: string;
   role: RoleEnum;
+  imageUrl?: string;
 };
 
 export type User = Base & CreateUser;
-
 export type UpdateUser = Partial<CreateUser>;

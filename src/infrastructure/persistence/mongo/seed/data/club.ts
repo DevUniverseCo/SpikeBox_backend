@@ -1,5 +1,5 @@
 import { CountryEnum } from "../../../../../application/common/enums/countryEnum";
-import { Club } from "../../../../../application/entities/club";
+import { Club } from "../../../../../application/domain/club";
 
 export const ClubSeed = () => {
   const club: Club = {
@@ -16,7 +16,6 @@ export const ClubSeed = () => {
       instagram: "https://www.instagram.com/volleyvenetocavaion",
     },
     logoUrl: "https://volleybox.net/media/upload/teams/16248809417EijP.png",
-    teams: [],
     locked: false,
   };
   return club;

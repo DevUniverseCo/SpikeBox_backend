@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import { RoleEnum } from "../../../../application/common/enums/roleEnum";
-import { User } from "../../../../application/entities/user";
+import { User } from "../../../../application/domain/user";
 
 export type UserDocument = User & Document;
 
@@ -15,10 +15,11 @@ const UserSchema = new Schema<UserDocument>(
       required: true,
       default: RoleEnum.USER,
     },
+    imageUrl: { type: String },
     locked: { type: Boolean, default: false },
     lockedAt: { type: Date },
   },
-  { timestamps: true } // createdAt e updatedAt automatici
+  { timestamps: true }
 );
 
 export const UserModel = model<UserDocument>("User", UserSchema);
