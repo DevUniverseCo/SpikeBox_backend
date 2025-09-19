@@ -1,7 +1,6 @@
 import autoLoad from "@fastify/autoload";
 import Fastify from "fastify";
 import path from "path";
-
 import {
   CstPluginErrors,
   CstPluginServices,
@@ -10,9 +9,9 @@ import {
   PluginHelmet,
   PluginSwaggerCore,
   PluginSwaggerUi,
-} from "./infrastructure/http/fastify";
-import { logger } from "./infrastructure/logger/logger";
-import { MongooseClient } from "./infrastructure/persistence/mongo/mongooseClient";
+} from "./shared/infrastructure/http/fastify";
+import { logger } from "./shared/infrastructure/logger/logger";
+import { MongooseClient } from "./shared/infrastructure/persistence/mongo/client";
 
 const buildApp = async () => {
   const fastify = Fastify({
