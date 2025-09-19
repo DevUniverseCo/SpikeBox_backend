@@ -1,9 +1,10 @@
 export const PositionEnum = {
   LIBERO: "libero",
-  MIDDLE: "middle_blocker",
+  MIDDLE_BLOCKER: "middle_blocker",
   OPPOSITE: "opposite",
-  OUTSIDE: "outside_hitter",
+  OUTSIDE_HITTER: "outside_hitter",
   SETTER: "setter",
+  OTHER: "other",
 } as const;
 
 export type PositionEnum = (typeof PositionEnum)[keyof typeof PositionEnum];

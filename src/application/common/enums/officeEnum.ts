@@ -8,6 +8,7 @@ export const OfficeEnum = {
   DIRECTOR: "director",
   PRESIDENT: "president",
   SCOUTER: "scouter",
+  PRESS_OFFICER: "press_officer",
   OTHER: "other",
 } as const;
 

@@ -22,9 +22,18 @@ const platformSchema = new Schema(
 );
 
 const locationSchema = new Schema(
-  Object.fromEntries(
-    Object.values(LocationEnum).map((key) => [key, { type: String }])
-  ),
+  {
+    [LocationEnum.ADDRESS]: { type: String },
+    [LocationEnum.LATITUDE]: { type: Number, min: -90, max: 90 },
+    [LocationEnum.LONGITUDE]: { type: Number, min: -180, max: 180 },
+    [LocationEnum.VENUE_NAME]: { type: String },
+    [LocationEnum.CITY]: { type: String },
+    [LocationEnum.PROVINCE]: { type: String },
+    [LocationEnum.COUNTRY]: { type: String, enum: Object.values(CountryEnum) },
+    [LocationEnum.POSTAL_CODE]: { type: String },
+    [LocationEnum.CAPACITY]: { type: Number, min: 0 },
+    [LocationEnum.IMAGE_URL]: { type: String },
+  },
   { _id: false }
 );
 
@@ -34,8 +43,6 @@ const ClubSchema = new Schema<ClubDocument>(
     description: { type: String },
     foundationYear: { type: Number },
     logoUrl: { type: String },
-    town: { type: String },
-    country: { type: String, enum: Object.values(CountryEnum) },
     contact: { type: contactSchema },
     location: { type: locationSchema },
     platform: { type: platformSchema },

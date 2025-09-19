@@ -5,8 +5,8 @@ import { LevelEnum } from "../../../../../application/common/enums/levelEnum ";
 import { Team } from "../../../../../application/domain/team";
 
 export const TeamSeed = (
-  seasonId: Types.ObjectId,
   clubId: Types.ObjectId,
+  seasonId: Types.ObjectId,
   staffIds: Types.ObjectId[]
 ) => {
   const team: Team = {

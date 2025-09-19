@@ -9,7 +9,7 @@ export type CreateTeam = {
   name: string;
   description?: string;
   imageUrl?: string;
-  location: LocationType;
+  location?: LocationType;
   season: Types.ObjectId;
   club: Types.ObjectId;
   staff: Types.ObjectId[];

@@ -6,16 +6,22 @@ export const ClubSeed = () => {
     name: "Volley Veneto Cavaion",
     description: "A prominent volleyball club based in Veneto.",
     foundationYear: 2015,
-    town: "Bardolino",
-    country: CountryEnum.ITA,
+    logoUrl: "https://volleybox.net/media/upload/teams/16248809417EijP.png",
     contact: {
       email: "info@volleyvenetocavaion.it",
+    },
+    location: {
+      address: "Via XX Settembre, 12",
+      city: "Bardolino",
+      postalCode: "37011",
+      province: "Verona",
+      country: CountryEnum.ITA,
+      venueName: "Palazzetto dello Sport",
     },
     platform: {
       facebook: "https://www.facebook.com/volleyvenetocavaion",
       instagram: "https://www.instagram.com/volleyvenetocavaion",
     },
-    logoUrl: "https://volleybox.net/media/upload/teams/16248809417EijP.png",
     locked: false,
   };
   return club;

@@ -7,7 +7,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "typeRoots": ["./node_modules/@types", "./src/infrastructure/fastify/types"]
+    "typeRoots": ["./node_modules/@types", "./src/infrastructure/http/fastify/types"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

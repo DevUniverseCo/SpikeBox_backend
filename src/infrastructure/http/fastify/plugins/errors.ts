@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import fp from "fastify-plugin";
-import { logger } from "../../logger/logger";
+import { logger } from "../../../logger/logger";
 
 /**
  * Custom error handler plugin per Fastify

@@ -8,8 +8,8 @@ export const AchievementSeed = (
   teamId?: Types.ObjectId
 ) => {
   const achievement: Achievement = {
-    name: "MVP of the Season",
-    description: "Awarded to the most valuable player of the season",
+    name: "Miglior centrale",
+    description: "Awarded to the best middle blocker of the season",
     date: new Date("2023-05-15"),
     entity: EntityEnum.PLAYER,
     season: seasonId,

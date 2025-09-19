@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import { CountryEnum } from "../../../../application/common/enums/countryEnum";
 import { LocationEnum } from "../../../../application/common/enums/locationEnum";
 import { StatusEnum } from "../../../../application/common/enums/statusEnum";
 import { Match, MatchSet } from "../../../../application/domain/match";
@@ -17,9 +18,18 @@ const MatchSetSchema = new Schema<MatchSet>(
 );
 
 const locationSchema = new Schema(
-  Object.fromEntries(
-    Object.values(LocationEnum).map((key) => [key, { type: String }])
-  ),
+  {
+    [LocationEnum.ADDRESS]: { type: String },
+    [LocationEnum.LATITUDE]: { type: Number, min: -90, max: 90 },
+    [LocationEnum.LONGITUDE]: { type: Number, min: -180, max: 180 },
+    [LocationEnum.VENUE_NAME]: { type: String },
+    [LocationEnum.CITY]: { type: String },
+    [LocationEnum.PROVINCE]: { type: String },
+    [LocationEnum.COUNTRY]: { type: String, enum: Object.values(CountryEnum) },
+    [LocationEnum.POSTAL_CODE]: { type: String },
+    [LocationEnum.CAPACITY]: { type: Number, min: 0 },
+    [LocationEnum.IMAGE_URL]: { type: String },
+  },
   { _id: false }
 );
 

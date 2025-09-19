@@ -1,7 +1,5 @@
-import { Achievement } from "../../../../application/domain/achievement";
-import { History } from "../../../../application/domain/history";
+import _ from "lodash";
 import { Post } from "../../../../application/domain/post";
-import { Staff } from "../../../../application/domain/staff";
 import { User } from "../../../../application/domain/user";
 import { AchievementModel } from "../schema/achievementSchema";
 import { ClubModel } from "../schema/clubSchema";
@@ -12,7 +10,6 @@ import { SeasonModel } from "../schema/seasonSchema";
 import { StaffModel } from "../schema/staffSchema";
 import { TeamModel } from "../schema/teamSchema";
 import { UserModel } from "../schema/userSchema";
-import { AchievementSeed } from "./data/achievement";
 import { ClubSeed } from "./data/club";
 import { HistorySeed } from "./data/history";
 import { PlayerSeed } from "./data/player";
@@ -39,37 +36,48 @@ export async function seed() {
   const club = ClubSeed();
   const newClub = await ClubModel.create(club);
 
-  // CREA STAGIONE
-  const season = SeasonSeed();
-  const newSeason = await SeasonModel.create(season);
+  // CREA SEASONS
+  const seasons = SeasonSeed();
+  const newSeasons = await SeasonModel.create(seasons);
+
+  // CREA PLAYERS
+  const players = PlayerSeed();
+  const newPlayers = await PlayerModel.create(players);
 
   // CREA STAFF
-  const staff: Staff = StaffSeed();
+  const staff = StaffSeed();
   const newStaff = await StaffModel.create(staff);
 
   // CREA TEAM
-  const team = TeamSeed(newClub._id, newSeason._id, [newStaff._id]);
+  const lastSeason = _.last(newSeasons);
+  if (!lastSeason) {
+    throw new Error("No seasons found to assign to team.");
+  }
+  const team = TeamSeed(
+    newClub._id,
+    lastSeason._id,
+    newStaff.map((s) => s._id)
+  );
   const newTeam = await TeamModel.create(team);
 
-  // CREA PLAYER
-  const player = PlayerSeed();
-  const newPlayer = await PlayerModel.create(player);
-
   // CREA ACHIEVEMENT
-  const achievement: Achievement = AchievementSeed(
-    newSeason._id,
-    undefined,
-    newTeam._id
-  );
-  await AchievementModel.create(achievement);
+  // const achievement: Achievement = AchievementSeed(
+  //   newSeason._id,
+  //   undefined,
+  //   newTeam._id
+  // );
+  // await AchievementModel.create(achievement);
 
   // CREATE HISTORY
-  const history: History = HistorySeed(
+  if (!lastSeason) {
+    throw new Error("No seasons found to assign to team.");
+  }
+  const histories = HistorySeed(
     newTeam._id,
-    newPlayer._id,
-    newSeason._id
+    newPlayers.map((s) => s._id),
+    lastSeason._id
   );
-  await HistoryModel.create(history);
+  await HistoryModel.create(histories);
 
   // CREATE USER
   const user: User = UserSeed();

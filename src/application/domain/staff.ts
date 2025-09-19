@@ -2,7 +2,6 @@ import { CountryEnum } from "../common/enums/countryEnum";
 import { OfficeEnum } from "../common/enums/officeEnum";
 import { Base } from "./base";
 
-// PLAYER CREATE DTO
 export type CreateStaff = {
   firstName: string;
   lastName: string;

@@ -16,6 +16,11 @@ declare module "fastify" {
     };
     services: {
       clubService: BaseService<ClubDocument, CreateClub>;
+      playerService: BaseService<PlayerDocument, CreatePlayer>;
+      staffService: BaseService<StaffDocument, CreateStaff>;
+      historyService: BaseService<HistoryDocument, CreateHistory>;
+      achievementService: BaseService<AchievementDocument, CreateAchievement>;
+      teamService: BaseService<TeamDocument, CreateTeam>;
       seasonService: SeasonService;
     };
   }
