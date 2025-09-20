@@ -3,7 +3,7 @@ import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
 import S from "fluent-json-schema";
 
-export const register = fp(async (fastify: FastifyInstance) => {
+export const registerPluginEnv = fp(async (fastify: FastifyInstance) => {
   try {
     // Schema delle variabili d'ambiente
     const schema = S.object()

@@ -1,15 +1,7 @@
-import autoLoad from "@fastify/autoload";
 import Fastify from "fastify";
-import path from "path";
-import {
-  CstPluginErrors,
-  CstPluginServices,
-  PluginCors,
-  PluginEnv,
-  PluginHelmet,
-  PluginSwaggerCore,
-  PluginSwaggerUi,
-} from "./shared/infrastructure/http/fastify";
+
+import registerAllPlugins from "./shared/infrastructure/http/fastify/plugins/_index";
+import registerAllRoutes from "./shared/infrastructure/http/fastify/routes/_index";
 import { logger } from "./shared/infrastructure/logger/logger";
 import { MongooseClient } from "./shared/infrastructure/persistence/mongo/client";
 
@@ -25,12 +17,10 @@ const buildApp = async () => {
     },
   });
 
-  // Registrazione dei plugin
-  await PluginEnv.register(fastify);
-  await PluginCors.register(fastify);
-  await PluginHelmet.register(fastify);
-  await PluginSwaggerCore.register(fastify);
-  await PluginSwaggerUi.register(fastify);
+  // Load plugins
+  await fastify.register(registerAllPlugins);
+  // Load routes with prefix /api/V1
+  await fastify.register(registerAllRoutes, { prefix: "/api/V1" });
 
   // --- MongoDB via Mongoose ---
   const mongooseClient = new MongooseClient({
@@ -44,15 +34,6 @@ const buildApp = async () => {
   // Decorate Fastify con Mongoose
   fastify.decorate("database", {
     mongoose: mongooseClient.getInstance(),
-  });
-
-  CstPluginErrors.register(fastify);
-  CstPluginServices.register(fastify);
-
-  // Caricamento automatico delle rotte
-  await fastify.register(autoLoad, {
-    dir: path.join(__dirname, "infrastructure/http/routes"),
-    options: { prefix: "/api" },
   });
 
   // Setup graceful shutdown con timeout

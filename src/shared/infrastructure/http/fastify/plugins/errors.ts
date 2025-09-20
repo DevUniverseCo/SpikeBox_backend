@@ -6,7 +6,7 @@ import { logger } from "../../../logger/logger";
  * Custom error handler plugin per Fastify
  * Intercetta tutti gli errori e invia una risposta JSON strutturata.
  */
-export const register = fp(async (fastify: FastifyInstance) => {
+export const registerPluginErrors = fp(async (fastify: FastifyInstance) => {
   fastify.setErrorHandler(
     (error: unknown, _request: FastifyRequest, reply: FastifyReply) => {
       const statusCode =

@@ -3,7 +3,7 @@ import swaggerUi from "@fastify/swagger-ui";
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
 
-export const register = fp(async (fastify: FastifyInstance) => {
+export const registerPluginSwaggerUi = fp(async (fastify: FastifyInstance) => {
   try {
     await fastify.register(swaggerUi, {
       routePrefix: "/docs",

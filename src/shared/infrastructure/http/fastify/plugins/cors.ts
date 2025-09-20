@@ -2,7 +2,7 @@ import cors from "@fastify/cors";
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
 
-export const register = fp(async (fastify: FastifyInstance) => {
+export const registerPluginCors = fp(async (fastify: FastifyInstance) => {
   try {
     await fastify.register(cors, {
       origin: "*",
