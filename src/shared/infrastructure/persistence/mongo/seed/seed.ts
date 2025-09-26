@@ -1,23 +1,23 @@
 import _ from "lodash";
-import { AchievementModel } from "../../../../../modules/achievements/persistence/model";
-import { ClubModel } from "../../../../../modules/clubs/persistence/model";
-import { ClubSeed } from "../../../../../modules/clubs/persistence/seed";
-import { HistoryModel } from "../../../../../modules/histories/persistence/model";
-import { HistorySeed } from "../../../../../modules/histories/persistence/seed";
-import { PlayerModel } from "../../../../../modules/players/persistence/model";
-import { PlayerSeed } from "../../../../../modules/players/persistence/seed";
+import { AchievementModel } from "../../../../../modules/achievements/persistence/mongo/model";
+import { ClubModel } from "../../../../../modules/clubs/persistence/mongo/model";
+import { ClubSeed } from "../../../../../modules/clubs/persistence/mongo/seed";
+import { PlayerHistoryModel } from "../../../../../modules/player_histories/persistence/mongo/model";
+import { HistorySeed } from "../../../../../modules/player_histories/persistence/mongo/seed";
+import { PlayerModel } from "../../../../../modules/players/persistence/mongo/model";
+import { PlayerSeed } from "../../../../../modules/players/persistence/mongo/seed";
 import { Post } from "../../../../../modules/posts/domain";
-import { PostModel } from "../../../../../modules/posts/persistence/model";
-import { PostSeed } from "../../../../../modules/posts/persistence/seed";
-import { SeasonModel } from "../../../../../modules/seasons/persistence/model";
-import { SeasonSeed } from "../../../../../modules/seasons/persistence/seed";
-import { StaffModel } from "../../../../../modules/staff/persistence/model";
-import { StaffSeed } from "../../../../../modules/staff/persistence/seed";
-import { TeamModel } from "../../../../../modules/teams/persistence/model";
-import { TeamSeed } from "../../../../../modules/teams/persistence/seed";
+import { PostModel } from "../../../../../modules/posts/persistence/mongo/model";
+import { PostSeed } from "../../../../../modules/posts/persistence/mongo/seed";
+import { SeasonModel } from "../../../../../modules/seasons/persistence/mongo/model";
+import { SeasonSeed } from "../../../../../modules/seasons/persistence/mongo/seed";
+import { StaffModel } from "../../../../../modules/staff/persistence/mongo/model";
+import { StaffSeed } from "../../../../../modules/staff/persistence/mongo/seed";
+import { TeamModel } from "../../../../../modules/teams/persistence/mongo/model";
+import { TeamSeed } from "../../../../../modules/teams/persistence/mongo/seed";
 import { User } from "../../../../../modules/users/domain";
-import { UserModel } from "../../../../../modules/users/persistence/model";
-import { UserSeed } from "../../../../../modules/users/persistence/seed";
+import { UserModel } from "../../../../../modules/users/persistence/mongo/model";
+import { UserSeed } from "../../../../../modules/users/persistence/mongo/seed";
 
 export async function seed() {
   await Promise.all([
@@ -28,7 +28,7 @@ export async function seed() {
     StaffModel.deleteMany(),
     PlayerModel.deleteMany(),
     SeasonModel.deleteMany(),
-    HistoryModel.deleteMany(),
+    PlayerHistoryModel.deleteMany(),
     AchievementModel.deleteMany(),
   ]);
 
@@ -77,7 +77,7 @@ export async function seed() {
     newPlayers.map((s) => s._id),
     lastSeason._id
   );
-  await HistoryModel.create(histories);
+  await PlayerHistoryModel.create(histories);
 
   // CREATE USER
   const user: User = UserSeed();

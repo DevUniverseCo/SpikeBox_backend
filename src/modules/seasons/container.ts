@@ -1,7 +1,7 @@
 import { BaseDao } from "../../shared/common/base/persistence/dao";
 import { BaseService } from "../../shared/common/base/use-case";
 import { CreateSeason } from "./domain";
-import { SeasonDocument, SeasonModel } from "./persistence/model";
+import { SeasonDocument, SeasonModel } from "./persistence/mongo/model";
 
 // Singleton instances (simple to import across the app)
 export const seasonDao = new BaseDao<SeasonDocument, CreateSeason>(SeasonModel);

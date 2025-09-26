@@ -1,4 +1,4 @@
-import { Static, Type } from "@sinclair/typebox";
+import { Type } from "@sinclair/typebox";
 import { BaseSchema } from "../../../../shared/common/base/http/schema/_index";
 import {
   DataResponseArrayType,
@@ -26,18 +26,14 @@ export const CreatePlayerDto = Type.Object({
   platform: Type.Optional(Type.Object({}, { additionalProperties: true })), // dettagliabili
 });
 
-export type CreatePlayer = Static<typeof CreatePlayerDto>;
-
 // DTO per aggiornamento
 export const UpdatePlayerDto = Type.Partial(CreatePlayerDto);
-export type UpdatePlayer = Static<typeof UpdatePlayerDto>;
 
 // DTO combinato per risposte, estende BaseSchema se necessario
 export const PlayerDto = Type.Intersect([
   BaseSchema.Bodies.Base,
   CreatePlayerDto,
 ]);
-export type Player = Static<typeof PlayerDto>;
 
 // -------------------- Response wrapper --------------------
 export const ResponseSingleDto = DataResponseSingleType(PlayerDto);

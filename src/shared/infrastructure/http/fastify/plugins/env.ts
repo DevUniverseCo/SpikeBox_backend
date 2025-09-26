@@ -9,10 +9,19 @@ export const registerPluginEnv = fp(async (fastify: FastifyInstance) => {
     const schema = S.object()
       .prop("NODE_ENV", S.string().enum(["dev", "prod"]).required())
       .prop("PORT", S.number().default(3000))
+
+      // MongoDB
       .prop("MONGODB_USERNAME", S.string().required())
       .prop("MONGODB_PASSWORD", S.string().required())
       .prop("MONGODB_DATABASE", S.string().required())
       .prop("MONGODB_CLUSTER", S.string().required())
+
+      // PostgreSQL
+      .prop("PG_USERNAME", S.string().required())
+      .prop("PG_PASSWORD", S.string().required())
+      .prop("PG_DATABASE", S.string().required())
+      .prop("PG_HOST", S.string().default("localhost"))
+      .prop("PG_PORT", S.number().default(5432))
       .valueOf();
 
     const options: FastifyEnvOptions = {

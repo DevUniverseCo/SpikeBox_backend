@@ -1,7 +1,7 @@
 import { BaseDao } from "../../shared/common/base/persistence/dao";
 import { BaseService } from "../../shared/common/base/use-case";
 import { CreateTeam } from "./domain";
-import { TeamDocument, TeamModel } from "./persistence/model";
+import { TeamDocument, TeamModel } from "./persistence/mongo/model";
 
 // Singleton instances (simple to import across the app)
 export const teamDao = new BaseDao<TeamDocument, CreateTeam>(TeamModel);

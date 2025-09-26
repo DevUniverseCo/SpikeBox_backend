@@ -4,6 +4,7 @@ import registerAllPlugins from "./shared/infrastructure/http/fastify/plugins/_in
 import registerAllRoutes from "./shared/infrastructure/http/fastify/routes/_index";
 import { logger } from "./shared/infrastructure/logger/logger";
 import { MongooseClient } from "./shared/infrastructure/persistence/mongo/client";
+import { PostgresClient } from "./shared/infrastructure/persistence/postgres/client";
 
 const buildApp = async () => {
   const fastify = Fastify({
@@ -24,16 +25,27 @@ const buildApp = async () => {
 
   // --- MongoDB via Mongoose ---
   const mongooseClient = new MongooseClient({
-    username: fastify.config.MONGODB_USERNAME,
-    password: fastify.config.MONGODB_PASSWORD,
-    cluster: fastify.config.MONGODB_CLUSTER,
-    dbName: fastify.config.MONGODB_DATABASE,
+    username: fastify.mongoConfig.USERNAME,
+    password: fastify.mongoConfig.PASSWORD,
+    cluster: fastify.mongoConfig.CLUSTER,
+    dbName: fastify.mongoConfig.DATABASE,
+  });
+  // --- PostgreSQL via pg Pool ---
+  const postgresClient = new PostgresClient({
+    user: fastify.pgConfig.USERNAME,
+    password: fastify.pgConfig.PASSWORD,
+    host: fastify.pgConfig.HOST,
+    dbName: fastify.pgConfig.DATABASE,
+    port: fastify.pgConfig.PORT,
   });
 
   await mongooseClient.connect();
+  await postgresClient.connect();
+
   // Decorate Fastify con Mongoose
   fastify.decorate("database", {
-    mongoose: mongooseClient.getInstance(),
+    mongo: mongooseClient.getInstance(),
+    pg: postgresClient.getInstance(),
   });
 
   // Setup graceful shutdown con timeout
@@ -51,6 +63,7 @@ const buildApp = async () => {
         try {
           await fastify.close();
           await mongooseClient.disconnect();
+          await postgresClient.disconnect();
           clearTimeout(shutdownTimeout);
           logger.info("✅ Fastify server stopped.");
           process.exit(0);

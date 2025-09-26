@@ -1,7 +1,7 @@
 import { BaseDao } from "../../shared/common/base/persistence/dao";
 import { BaseService } from "../../shared/common/base/use-case";
 import { CreatePost } from "./domain";
-import { PostDocument, PostModel } from "./persistence/model";
+import { PostDocument, PostModel } from "./persistence/mongo/model";
 
 // Singleton instances (simple to import across the app)
 export const postDao = new BaseDao<PostDocument, CreatePost>(PostModel);

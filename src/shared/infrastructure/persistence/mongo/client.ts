@@ -1,16 +1,18 @@
 import mongoose, { Mongoose } from "mongoose";
 import { logger } from "../../logger/logger";
 
+type MongooseClientParams = {
+  username: string;
+  password: string;
+  cluster: string;
+  dbName: string;
+};
+
 export class MongooseClient {
   private mongooseInstance: Mongoose | null = null;
   private readonly uri: string;
 
-  constructor(params: {
-    username: string;
-    password: string;
-    cluster: string;
-    dbName: string;
-  }) {
+  constructor(params: MongooseClientParams) {
     const { username, password, cluster, dbName } = params;
 
     if (!username || !password || !cluster || !dbName) {

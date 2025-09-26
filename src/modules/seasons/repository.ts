@@ -1,4 +1,4 @@
-import { IBaseRepository } from "../../shared/base/repository";
+import { IBaseRepository } from "../../shared/common/base/repository";
 import { CreateSeason, Season } from "./domain";
 
 export interface ISeasonRepository

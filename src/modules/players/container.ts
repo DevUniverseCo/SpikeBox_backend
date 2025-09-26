@@ -1,7 +1,7 @@
 import { BaseDao } from "../../shared/common/base/persistence/dao";
 import { BaseService } from "../../shared/common/base/use-case";
 import { CreatePlayer } from "./domain";
-import { PlayerDocument, PlayerModel } from "./persistence/model";
+import { PlayerDocument, PlayerModel } from "./persistence/mongo/model";
 
 // Singleton instances (simple to import across the app)
 export const playerDao = new BaseDao<PlayerDocument, CreatePlayer>(PlayerModel);
