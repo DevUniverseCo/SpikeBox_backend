@@ -1,14 +1,33 @@
-import { BaseDao } from "../../shared/common/base/persistence/dao";
-import { BaseService } from "../../shared/common/base/use-case";
-import { CreateUser } from "./domain";
-import { UserDocument, UserModel } from "./persistence/mongo/model";
+import { IBaseRepository } from "../../shared/common/base/repository";
+import { DatabaseConfigurationManager } from "../../shared/infrastructure/persistence/config";
+import { CreateUser, User } from "./domain";
+import { DatabaseType, UserRepositoryFactory } from "./persistence/factory";
 
-// Singleton instances (simple to import across the app)
-export const userDao = new BaseDao<UserDocument, CreateUser>(UserModel);
-export const userService = new BaseService(userDao);
+// Configuration manager
+const configManager = DatabaseConfigurationManager.getInstance();
 
-// Optional: factory to get fresh instances (useful in tests)
-export function createUserService() {
-  const dao = new BaseDao<UserDocument, CreateUser>(UserModel);
-  return new BaseService(dao);
+// Factory instance
+const repositoryFactory = new UserRepositoryFactory();
+
+// Get repository based on configuration
+function getUserRepository(): IBaseRepository<User, CreateUser> {
+  const config = configManager.getConfig();
+  const connectionOptions =
+    config.type === "postgres"
+      ? { pool: configManager.getPostgresPool() }
+      : undefined;
+
+  return repositoryFactory.createUserRepository(config.type, connectionOptions);
+}
+
+// New repository-based service
+export const userRepository = getUserRepository();
+
+// Factory function for tests or multiple instances
+export function createUserRepository(
+  dbType?: DatabaseType,
+  connectionOptions?: any
+) {
+  const finalDbType = dbType || configManager.getDatabaseType();
+  return repositoryFactory.createUserRepository(finalDbType, connectionOptions);
 }

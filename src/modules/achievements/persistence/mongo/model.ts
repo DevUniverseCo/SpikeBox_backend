@@ -1,22 +1,43 @@
 import { model, Schema, Types } from "mongoose";
-import { EntityEnum } from "../../../../shared/common/enums/entityEnum";
 import { Achievement } from "../../domain";
 
-export type AchievementDocument = Achievement & Document;
+export type AchievementDocument = Document &
+  Omit<
+    Achievement,
+    | "id"
+    | "seasonId"
+    | "playerId"
+    | "teamId"
+    | "staffId"
+    | "createdAt"
+    | "updatedAt"
+  > & {
+    seasonId: Types.ObjectId;
+    playerId?: Types.ObjectId;
+    teamId?: Types.ObjectId;
+    staffId?: Types.ObjectId;
+  };
 
 const AchievementSchema = new Schema<AchievementDocument>(
   {
     name: { type: String, required: true },
     description: { type: String },
-    date: { type: Date, required: true },
-    player: { type: Types.ObjectId, ref: "Player" },
-    team: { type: Types.ObjectId, ref: "Team" },
-    entity: { type: String, enum: Object.values(EntityEnum), required: true },
+    achievedAt: { type: Date, required: true },
+    seasonId: { type: Schema.Types.ObjectId, ref: "Season", required: true },
+    playerId: { type: Schema.Types.ObjectId, ref: "Player" },
+    teamId: { type: Schema.Types.ObjectId, ref: "Team" },
+    staffId: { type: Schema.Types.ObjectId, ref: "Staff" },
     locked: { type: Boolean, default: false },
     lockedAt: { type: Date },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
+
+AchievementSchema.virtual("id").get(function () {
+  return this._id.toString();
+});
 
 export const AchievementModel = model<AchievementDocument>(
   "Achievement",

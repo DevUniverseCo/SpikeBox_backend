@@ -1,10 +1,10 @@
 import { Model, Types } from "mongoose";
 import { IBaseRepository } from "../repository";
 
-export class BaseDao<Entity, CreateEntity>
+export class BaseMongoDao<Entity, CreateEntity>
   implements IBaseRepository<Entity, CreateEntity>
 {
-  constructor(readonly model: Model<Entity & Document>) {}
+  constructor(readonly model: Model<Document>) {}
 
   async create(createEntity: CreateEntity): Promise<Entity> {
     const doc = await this.model.create({

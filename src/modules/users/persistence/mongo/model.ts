@@ -1,8 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Document, Schema, model } from "mongoose";
 import { RoleEnum } from "../../../../shared/common/enums/roleEnum";
-import { User } from "../../domain";
+import { UserMongoDocument } from "../mappers";
 
-export type UserDocument = User & Document;
+export type UserDocument = UserMongoDocument & Document;
 
 const UserSchema = new Schema<UserDocument>(
   {

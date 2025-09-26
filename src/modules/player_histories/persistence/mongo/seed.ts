@@ -50,6 +50,7 @@ export const HistorySeed = (
     }
 
     const history: PlayerHistory = {
+      id: playerId.toHexString(),
       player: playerId,
       team: teamId,
       season: seasonId,

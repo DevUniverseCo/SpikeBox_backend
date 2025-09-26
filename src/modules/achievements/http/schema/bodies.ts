@@ -5,7 +5,6 @@ import {
   DataResponseArrayType,
   DataResponseSingleType,
 } from "../../../../shared/common/base/http/schema/bodies";
-import { EntityEnum } from "../../../../shared/common/enums/entityEnum";
 
 // -------------------- DTOs --------------------
 
@@ -13,11 +12,11 @@ import { EntityEnum } from "../../../../shared/common/enums/entityEnum";
 export const CreateAchievementDto = Type.Object({
   name: Type.String(),
   description: Type.Optional(Type.String()),
-  date: Type.String({ format: "date-time" }),
-  entity: Type.Enum(EntityEnum),
-  season: Type.String(),
-  player: Type.String(),
-  team: Type.String(),
+  achievedAt: Type.String({ format: "date-time" }),
+  seasonId: Type.String(),
+  playerId: Type.Optional(Type.String()),
+  teamId: Type.Optional(Type.String()),
+  staffId: Type.Optional(Type.String()),
 });
 
 // DTO per aggiornamento Achievement (PATCH)
@@ -34,7 +33,6 @@ export const ResponseSingleDto = DataResponseSingleType(AchievementDto);
 export const ResponseArrayDto = DataResponseArrayType(AchievementDto);
 
 // -------------------- Schema CRUD pronto per le rotte --------------------
-
 const ErrorResponses = {
   404: BaseSchema.Errors.ApiErrorResponse,
   500: BaseSchema.Errors.ApiErrorResponse,

@@ -1,4 +1,4 @@
-import { BaseDao } from "../../shared/common/base/persistence/dao";
+import { mongoDao } from "../../shared/common/base/persistence/mongoDao";
 import { BaseService } from "../../shared/common/base/use-case";
 import { CreateStaffHistory } from "./domain";
 import {
@@ -7,7 +7,7 @@ import {
 } from "./persistence/mongo/model";
 
 // Singleton instances (simple to import across the app)
-export const staffHistoryDao = new BaseDao<
+export const staffHistoryDao = new mongoDao<
   StaffHistoryDocument,
   CreateStaffHistory
 >(StaffHistoryModel);
@@ -15,7 +15,7 @@ export const staffHistoryService = new BaseService(staffHistoryDao);
 
 // Optional: factory to get fresh instances (useful in tests)
 export function createStaffHistoryService() {
-  const dao = new BaseDao<StaffHistoryDocument, CreateStaffHistory>(
+  const dao = new mongoDao<StaffHistoryDocument, CreateStaffHistory>(
     StaffHistoryModel
   );
   return new BaseService(dao);

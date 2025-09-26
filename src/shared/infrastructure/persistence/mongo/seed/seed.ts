@@ -6,9 +6,7 @@ import { PlayerHistoryModel } from "../../../../../modules/player_histories/pers
 import { HistorySeed } from "../../../../../modules/player_histories/persistence/mongo/seed";
 import { PlayerModel } from "../../../../../modules/players/persistence/mongo/model";
 import { PlayerSeed } from "../../../../../modules/players/persistence/mongo/seed";
-import { Post } from "../../../../../modules/posts/domain";
 import { PostModel } from "../../../../../modules/posts/persistence/mongo/model";
-import { PostSeed } from "../../../../../modules/posts/persistence/mongo/seed";
 import { SeasonModel } from "../../../../../modules/seasons/persistence/mongo/model";
 import { SeasonSeed } from "../../../../../modules/seasons/persistence/mongo/seed";
 import { StaffModel } from "../../../../../modules/staff/persistence/mongo/model";
@@ -84,6 +82,6 @@ export async function seed() {
   const newUser = await UserModel.create(user);
 
   // CREATE POST
-  const post: Post = PostSeed(newUser._id);
-  await PostModel.create(post);
+  // const post: Post = PostSeed(newUser._id);
+  // await PostModel.create(post);
 }
