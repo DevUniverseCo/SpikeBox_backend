@@ -1,7 +1,10 @@
 import { BaseDao } from "../../shared/common/base/persistence/dao";
 import { BaseService } from "../../shared/common/base/use-case";
 import { CreateAchievement } from "./domain";
-import { AchievementDocument, AchievementModel } from "./persistence/model";
+import {
+  AchievementDocument,
+  AchievementModel,
+} from "./persistence/mongo/model";
 
 // Singleton instances (simple to import across the app)
 export const achievementDao = new BaseDao<
