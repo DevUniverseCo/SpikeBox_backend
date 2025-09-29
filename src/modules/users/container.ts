@@ -31,3 +31,21 @@ export function createUserRepository(
   const finalDbType = dbType || configManager.getDatabaseType();
   return repositoryFactory.createUserRepository(finalDbType, connectionOptions);
 }
+
+export const userMongoMapper = MapperFactory.createMongoMapper<User>();
+export const userPostgresMapper = MapperFactory.createPostgresMapper<User>();
+
+// Tipi per retrocompatibilità (opzionale)
+export type UserMongoMapper = typeof userMongoMapper;
+export type UserPostgresMapper = typeof userPostgresMapper;
+
+// export const playerDao = new mongoDao<PlayerDocument, CreatePlayer>(
+//   PlayerModel
+// );
+// export const playerService = new BaseUseCase(playerDao);
+
+// // Optional: factory to get fresh instances (useful in tests)
+// export function createPlayerService() {
+//   const dao = new mongoDao<PlayerDocument, CreatePlayer>(PlayerModel);
+//   return new BaseUseCase(dao);
+// }

@@ -1,5 +1,5 @@
-import { mongoDao } from "../../shared/common/base/persistence/mongoDao";
-import { BaseService } from "../../shared/common/base/use-case";
+import { mongoDao } from "../../shared/common/base/persistence/daos/mongoDao";
+import { BaseUseCase } from "../../shared/common/base/use-case";
 import { CreateStaffHistory } from "./domain";
 import {
   StaffHistoryDocument,
@@ -11,12 +11,12 @@ export const staffHistoryDao = new mongoDao<
   StaffHistoryDocument,
   CreateStaffHistory
 >(StaffHistoryModel);
-export const staffHistoryService = new BaseService(staffHistoryDao);
+export const staffHistoryService = new BaseUseCase(staffHistoryDao);
 
 // Optional: factory to get fresh instances (useful in tests)
 export function createStaffHistoryService() {
   const dao = new mongoDao<StaffHistoryDocument, CreateStaffHistory>(
     StaffHistoryModel
   );
-  return new BaseService(dao);
+  return new BaseUseCase(dao);
 }

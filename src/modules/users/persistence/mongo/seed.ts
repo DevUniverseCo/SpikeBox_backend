@@ -1,14 +1,13 @@
 import { RoleEnum } from "../../../../shared/common/enums/roleEnum";
-import { User } from "../../domain";
+import { CreateUser } from "../../domain";
 
 export const UserSeed = () => {
-  const user: User = {
+  const user: CreateUser = {
     username: "test",
     email: "test@example.com",
     password: "hashedpassword",
     role: RoleEnum.ADMIN,
     imageUrl: "https://example.com/avatar.png",
-    locked: false,
   };
   return user;
 };

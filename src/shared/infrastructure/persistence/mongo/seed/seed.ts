@@ -13,9 +13,7 @@ import { StaffModel } from "../../../../../modules/staff/persistence/mongo/model
 import { StaffSeed } from "../../../../../modules/staff/persistence/mongo/seed";
 import { TeamModel } from "../../../../../modules/teams/persistence/mongo/model";
 import { TeamSeed } from "../../../../../modules/teams/persistence/mongo/seed";
-import { User } from "../../../../../modules/users/domain";
 import { UserModel } from "../../../../../modules/users/persistence/mongo/model";
-import { UserSeed } from "../../../../../modules/users/persistence/mongo/seed";
 
 export async function seed() {
   await Promise.all([
@@ -78,8 +76,8 @@ export async function seed() {
   await PlayerHistoryModel.create(histories);
 
   // CREATE USER
-  const user: User = UserSeed();
-  const newUser = await UserModel.create(user);
+  //const user: User = UserSeed();
+  //const newUser = await UserModel.create(user);
 
   // CREATE POST
   // const post: Post = PostSeed(newUser._id);
