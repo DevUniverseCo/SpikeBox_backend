@@ -1,5 +1,5 @@
 import { Model, Types } from "mongoose";
-import { IBaseRepository } from "../repository";
+import { IBaseRepository } from "../../../common/base/repository";
 
 export class BaseDao<Entity, CreateEntity>
   implements IBaseRepository<Entity, CreateEntity>

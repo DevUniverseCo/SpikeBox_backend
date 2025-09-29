@@ -1,5 +1,5 @@
 import { BaseDao } from "../../shared/common/base/persistence/dao";
-import { BaseService } from "../../shared/common/base/use-case";
+import { BaseService } from "../../shared/infrastructure/persistence/mongo/use-case";
 import { CreatePlayerHistory } from "./domain";
 import {
   PlayerHistoryDocument,

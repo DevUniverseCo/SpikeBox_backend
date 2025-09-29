@@ -1,5 +1,7 @@
+import { Kysely, PostgresDialect } from "kysely";
 import pkg from "pg";
 import { logger } from "../../logger/logger";
+import { Database } from "./database";
 
 const { Pool } = pkg;
 
@@ -13,6 +15,7 @@ type PostgresClientParams = {
 
 export class PostgresClient {
   private pool: pkg.Pool | null = null;
+  private kysely: Kysely<Database> | null = null;
   private readonly config: PostgresClientParams;
 
   constructor(params: PostgresClientParams) {
@@ -38,11 +41,18 @@ export class PostgresClient {
         port: this.config.port,
       });
 
+      // Inizializza Kysely
+      this.kysely = new Kysely<Database>({
+        dialect: new PostgresDialect({
+          pool: this.pool,
+        }),
+      });
+
       // Test connessione
       try {
         const client = await this.pool.connect();
         client.release();
-        logger.info("✅ Connected to PostgreSQL via pg Pool");
+        logger.info("✅ Connected to PostgreSQL via pg Pool with Kysely");
       } catch (err) {
         logger.error("❌ Failed to connect to PostgreSQL", err);
         throw err;
@@ -54,6 +64,10 @@ export class PostgresClient {
 
   /** Disconnetti dal database */
   async disconnect(): Promise<void> {
+    if (this.kysely) {
+      await this.kysely.destroy();
+      this.kysely = null;
+    }
     if (this.pool) {
       await this.pool.end();
       this.pool = null;
@@ -69,5 +83,15 @@ export class PostgresClient {
       );
     }
     return this.pool;
+  }
+
+  /** Restituisce l’istanza Kysely per query type-safe */
+  getKysely(): Kysely<Database> {
+    if (!this.kysely) {
+      throw new Error(
+        "PostgresClient: Database not connected. Call connect() first."
+      );
+    }
+    return this.kysely;
   }
 }

@@ -1,5 +1,5 @@
-import { NotFoundError } from "../errors";
-import { IBaseRepository } from "./repository";
+import { IBaseRepository } from "../../../common/base/repository";
+import { NotFoundError } from "../../../common/errors";
 
 export class BaseService<Entity, CreateEntity> {
   constructor(

@@ -26,6 +26,7 @@
     "fastify": "^5.5.0",
     "fastify-plugin": "^5.0.1",
     "fluent-json-schema": "^6.0.0",
+    "kysely": "^0.28.7",
     "lodash": "^4.17.21",
     "mongodb": "^6.19.0",
     "mongoose": "^8.18.1",
